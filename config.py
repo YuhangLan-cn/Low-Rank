@@ -27,10 +27,7 @@ class TrainingConfig:
     device: str = "cpu"  # "cpu" or "cuda"
     
     # 输出参数
-    verbose: bool = True
     save_model: bool = True
-    plot: bool = False
-    print_every: int = 100
 
 
 # 预设配置
@@ -107,7 +104,7 @@ def print_config(config: TrainingConfig) -> None:
     print(f"  Test split: {config.test_split}")
     
     print("\nNetwork Architecture:")
-    print(f"  Input dimension: {config.input_dim}")
+    print("  Input dimension: detected from data")
     print(f"  Hidden layers: {config.num_hidden_layers}")
     print(f"  Neurons per layer: {config.neurons_per_layer}")
     print(f"  Activation: {config.activation_function}")
@@ -120,9 +117,7 @@ def print_config(config: TrainingConfig) -> None:
     print(f"  Device: {config.device}")
     
     print("\nOutput:")
-    print(f"  Verbose: {config.verbose}")
     print(f"  Save model: {config.save_model}")
-    print(f"  Plot: {config.plot}")
     print("="*60 + "\n")
 
 
@@ -134,7 +129,7 @@ if __name__ == "__main__":
     
     # 方式 2: 自定义参数
     config2 = get_config(
-        input_file="data.csv",
+        input_file="data.npy",
         num_epochs=3000,
         learning_rate=1e-2,
         device="cuda"

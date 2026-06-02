@@ -12,29 +12,27 @@ Low-Rank Tensorized 代理网络训练框架。
 - main: 命令行程序入口
 """
 
-from .network import U_Network, Rational, Sin, evaluate_u_derivatives, u_mse_loss
+from .network import LowRankPDE, U_Network, Rational, Sin, evaluate_u_derivatives
 from .train import (
+    discover_pde,
+    compute_physical_derivative_data,
     train_u_network,
-    train_u_network_with_validation,
     save_u_network,
     load_u_network,
-    normalize_coords_with_model,
 )
-from .test import (
-    evaluate_on_dataset,
-    predict,
-    compute_derivatives,
-    plot_1d_predictions,
-    plot_predictions_vs_targets,
-)
-from .loss import mse_loss, weighted_mse_loss, mae_loss, huber_loss, regularized_loss
+from .test import predict
+from .loss import mse_loss, regularized_loss
 from .measure import (
     compute_all_metrics,
+    compute_tensor_metrics,
+    evaluate_discovered_terms,
+    evaluate_on_dataset,
     mean_squared_error,
     mean_absolute_error,
+    pde_residual_mse,
     root_mean_squared_error,
     r_squared,
-    model_complexity_metrics,
+    summarize_derivative_data,
 )
 
 __version__ = "0.1.0"
@@ -42,29 +40,26 @@ __author__ = "PDE Discovery Project"
 
 __all__ = [
     "U_Network",
+    "LowRankPDE",
     "Rational",
     "Sin",
     "evaluate_u_derivatives",
-    "u_mse_loss",
+    "discover_pde",
+    "compute_physical_derivative_data",
     "train_u_network",
-    "train_u_network_with_validation",
     "save_u_network",
     "load_u_network",
-    "normalize_coords_with_model",
     "evaluate_on_dataset",
     "predict",
-    "compute_derivatives",
-    "plot_1d_predictions",
-    "plot_predictions_vs_targets",
     "mse_loss",
-    "weighted_mse_loss",
-    "mae_loss",
-    "huber_loss",
     "regularized_loss",
     "compute_all_metrics",
+    "compute_tensor_metrics",
+    "evaluate_discovered_terms",
     "mean_squared_error",
     "mean_absolute_error",
+    "pde_residual_mse",
     "root_mean_squared_error",
     "r_squared",
-    "model_complexity_metrics",
+    "summarize_derivative_data",
 ]

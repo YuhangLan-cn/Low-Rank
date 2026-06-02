@@ -1,15 +1,16 @@
 # Low-Rank Tensorized 代理网络训练框架
 
-这是一个独立的代理网络（U_Network）训练框架，从 PDE 发现项目中提取而来。该框架可以独立使用，用于训练神经网络代理来近似时空数据。
+这是一个基于代理网络（U_Network）的 PDE 发现框架。它先训练神经网络近似时空观测数据，再通过自动微分和连续稀疏低秩张量模型发现显式 PDE。
 
 ## 功能特性
 
-- **完整的训练流程**：从数据加载、预处理、网络训练到模型评估
+- **完整的训练流程**：从数据加载、预处理、代理网络训练到 PDE 发现
 - **灵活的网络架构**：支持自定义隐藏层数、神经元数、激活函数等
 - **多种激活函数**：支持 Rational、Tanh、Sin 等激活函数
 - **自动微分支持**：通过 PyTorch 自动微分计算各阶导数
-- **详细的评估指标**：MSE、MAE、RMSE、R²、相关系数等
-- **多种数据格式支持**：.npy、.csv、.txt、.mat
+- **核心评估指标**：MSE、RMSE、MAE、相对误差、R²
+- **低秩 PDE 发现**：支持符号展开、剪枝和固定支持集最小二乘重拟合
+- **数据格式**：命令行入口目前支持 `.npy`
 
 ## 项目结构
 
@@ -31,61 +32,61 @@ Low-Rank_Tensorized/
 - `U_Network`: 主网络类，用于近似 u(x, t)
 - `Rational`: 可训练的有理激活函数
 - `Sin`: 正弦激活函数
-- `evaluate_u_derivatives()`: 计算函数及其导数
+- `evaluate_u_derivatives()`: 计算网络输入尺度上的函数及导数
 
 ### train.py
 - `train_u_network()`: 基础训练函数
-- `train_u_network_with_validation()`: 带验证集的训练
-- `normalize_coords_with_model()`: 坐标归一化
+- `compute_physical_derivative_data()`: 计算并恢复到物理尺度的 PDE 原子和 `u_t`
+- `discover_pde()`: 连续稀疏低秩张量 PDE 发现
 - `save_u_network()`: 保存模型
 - `load_u_network()`: 加载模型
 
 ### test.py
-- `evaluate_on_dataset()`: 在数据集上评估
 - `predict()`: 预测
-- `compute_derivatives()`: 计算导数
-- `plot_1d_predictions()`: 绘制 1D 预测
-- `test_on_regular_grid()`: 在规则网格上测试
 
 ### loss.py
 - `mse_loss()`: 均方误差
-- `weighted_mse_loss()`: 加权 MSE
-- `mae_loss()`: 平均绝对误差
-- `huber_loss()`: Huber 损失
 - `regularized_loss()`: 带正则化的损失
 
 ### measure.py
-- `compute_all_metrics()`: 计算所有评估指标
+- `compute_all_metrics()`: 计算核心拟合指标
 - `mean_squared_error()`: MSE
 - `root_mean_squared_error()`: RMSE
 - `mean_absolute_error()`: MAE
+- `relative_error()`: 相对误差
 - `r_squared()`: R² 值
-- `pearson_correlation()`: Pearson 相关系数
-- `model_complexity_metrics()`: 模型复杂度指标
 
 ## 快速开始
 
 ### 1. 安装依赖
 
 ```bash
-pip install torch numpy scipy tqdm matplotlib
+pip install torch numpy
 ```
 
 ### 2. 基本使用
 
 ```bash
 # 最简单的用法
-python main.py --input data.npy
+python main.py burgers_sine --input_path data
+# 默认读取 data/burgers_sine.npy，输出到 ./output/burgers_sine/
 
 # 指定输出目录和评估
-python main.py --input data.npy --output-dir ./results --plot
+python main.py burgers_sine --input_path data --output-dir ./results
 
-# 使用 MATLAB 文件
-python main.py --input data.mat --mat-key usol --output-dir ./results
+# 训练代理网络后执行 PDE 发现
+python main.py burgers_sine --input_path data --output-dir ./results --discover-pde
+
+# 每一阶使用统一最大 rank
+python main.py burgers_sine --input_path data --discover-pde --pde-rank 6
+
+# 每一阶设置不同最大 rank
+python main.py burgers_sine --input_path data --discover-pde --pde-ranks "2:8,3:8,4:4"
 
 # 自定义网络和训练参数
 python main.py \
-    --input data.npy \
+    burgers_sine \
+    --input_path data \
     --epochs 3000 \
     --batch-size 128 \
     --learning-rate 1e-2 \
@@ -98,9 +99,10 @@ python main.py \
 ### 3. 在 Python 中使用
 
 ```python
+import torch
+
 from train import train_u_network
-from test import evaluate_on_dataset
-from measure import compute_all_metrics
+from measure import evaluate_on_dataset
 
 # 加载数据（这里假设你已经有 coords 和 values）
 # coords: shape=(n_samples, 2) 的坐标 [x, t]
@@ -114,43 +116,42 @@ model, train_log = train_u_network(
     num_epochs=5000,
     batch_size=256,
     learning_rate=1e-3,
-    device="cuda",
+    device="cuda" if torch.cuda.is_available() else "cpu",
 )
 
 # 评估
 eval_result = evaluate_on_dataset(model, coords, values)
-metrics = compute_all_metrics(eval_result["predictions"], values)
-print(f"MSE: {metrics['mse']:.6e}")
-print(f"R²: {metrics['r_squared']:.6f}")
+print(f"MSE: {eval_result['mse']:.6e}")
+print(f"R²: {eval_result['r_squared']:.6f}")
 ```
 
 ### 4. 计算导数
 
 ```python
-from test import compute_derivatives
+from train import compute_physical_derivative_data
 
-# 计算 u 及其导数
-u, atoms, ut = compute_derivatives(
+# coords 应该是 preprocess_data 返回的标准化坐标
+# preprocessing_info 也是 preprocess_data 返回的标准化参数
+atoms, ut = compute_physical_derivative_data(
     model,
     coords,
-    num_spatial_dims=1,
-    max_order=3,
+    preprocessing_info,
 )
 
-# atoms 包含：u, u^2, u_x, u_xx, u_xxx
+# atoms 是物理尺度的 [u, u_x, u_xx, u_xxx]
+# ut 是物理尺度的 u_t
 ```
 
 ## 命令行参数详解
 
 ### 数据相关
-- `--input`: 输入文件路径（必需）
-- `--mat-key`: MATLAB 文件中的变量名
-- `--output-dir`: 输出目录（默认：./output）
+- `data`: 输入数据集名称，不含 `.npy` 后缀；默认 `burgers_sine`
+- `--input_path`: 输入 `.npy` 数据目录，默认 `data`
+- `--output-dir`: 输出目录（默认：`./output/<数据集名称>/`）
 - `--noise-std`: 添加的高斯噪声标准差
 - `--test-split`: 测试集比例（0-1，默认 0.2）
 
 ### 网络架构
-- `--input-dim`: 输入维度，默认 2（x 和 t）
 - `--num-hidden-layers`: 隐藏层数，默认 5
 - `--neurons-per-layer`: 每层神经元数，默认 50
 - `--activation`: 激活函数，选项：Rat, Tanh, Sin
@@ -160,23 +161,29 @@ u, atoms, ut = compute_derivatives(
 - `--batch-size`: 批大小，默认 256
 - `--learning-rate`: 学习率，默认 1e-3
 - `--lambda-reg`: L2 正则化系数，默认 0
-- `--device`: 计算设备，选项：cpu, cuda
+
+### PDE 发现参数
+- `--discover-pde`: 启用连续稀疏低秩张量 PDE 发现
+- `--pde-max-order`: 最大非线性交互阶数，默认 3
+- `--pde-rank`: 每阶最大低秩分量数，默认 4
+- `--pde-ranks`: 每阶最大 rank，例如 `"2:8,3:8,4:4"`，优先于 `--pde-rank`
+- `--pde-dense-epochs`: dense fitting 轮数，默认 1000
+- `--pde-sparse-epochs`: sparse fitting 轮数，默认 2000
+- `--pde-learning-rate`: PDE 模型学习率，默认 1e-3
+- `--true-pde-json`: 可选真实 PDE 系数字典，用于计算项识别和系数误差
 
 ### 输出选项
-- `--verbose`: 详细输出
 - `--save-model`: 保存模型权重
-- `--plot`: 绘制结果图表
 
 ## 输出文件
 
-运行完成后，在 `--output-dir` 中生成：
+运行完成后，在输出目录中生成。未指定 `--output-dir` 时，会自动按输入数据文件名保存到 `./output/<输入文件名>/`：
 
 - `u_network_model.pt`: 保存的模型（如果使用 --save-model）
 - `training_log.json`: 训练日志
-- `train_losses.npy`: 训练损失历史
-- `test_losses.npy`: 测试损失历史
 - `metrics.json`: 评估指标
-- `predictions_vs_targets_*.png`: 预测对比图
+- `preprocessing.json`: 坐标和 u 的标准化参数
+- `pde_discovery.json`: PDE 发现结果（如果使用 `--discover-pde`），包含 `rank_by_order_max` 和 `effective_rank_by_order`
 
 ## 数据格式说明
 
@@ -186,26 +193,13 @@ u, atoms, ut = compute_derivatives(
 - 第 1 列：t 坐标
 - 第 2 列：u 值
 
-### .csv/.txt 格式
-```
-x1, u1, t1
-x2, u2, t2
-...
-```
-
-### .mat 格式
-需要包含：
-- `u` 或 `usol`: 时空场数据，shape=(nx, nt) 或 (nt, nx)
-- `x` 或 `xx`: x 坐标
-- `t` 或 `tt`: t 坐标
-
 ## 常见问题
 
 ### Q: 如何加快训练？
 - 减少 `--epochs`
 - 增加 `--batch-size`
 - 减少 `--num-hidden-layers` 或 `--neurons-per-layer`
-- 使用 GPU：`--device cuda`
+- 如果当前 PyTorch 环境能检测到 CUDA，程序会自动使用 GPU
 
 ### Q: 模型性能不好怎么办？
 - 调整学习率（尝试 1e-4 到 1e-1）
@@ -216,9 +210,9 @@ x2, u2, t2
 
 ### Q: 如何计算导数？
 ```python
-from test import compute_derivatives
-u, atoms, ut = compute_derivatives(model, coords, num_spatial_dims=1, max_order=3)
-# atoms 包含所有空间导数项
+from train import compute_physical_derivative_data
+atoms, ut = compute_physical_derivative_data(model, coords, preprocessing_info)
+# atoms 是物理尺度的 [u, u_x, u_xx, u_xxx]
 ```
 
 ### Q: 如何保存和加载模型？
@@ -234,7 +228,7 @@ model = load_u_network("my_model.pt", input_dim=2)
 
 ## 性能提示
 
-1. **数据标准化**: 模型会自动归一化坐标到 [-1, 1] 范围
+1. **数据标准化**: 程序会先划分训练/测试集，再用训练集统计量对坐标、时间和 u 做标准化
 2. **批大小**: 对于小数据集（<10K），较小的批大小（32-64）通常更好
 3. **学习率**: 建议从 1e-3 开始，根据损失曲线调整
 4. **验证集**: 建议留出 10-20% 的数据用于验证

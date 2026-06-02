@@ -1,0 +1,18 @@
+The Korteweg-De Vries (KdV) equation, which is utilized to describe the evolution of one-dimensional shallow-water waves, is written as:
+ut+uux+0.0025uxxx=0	
+The dataset is grid data of 512 spatial observation points in the domain [-1,1) and 201 temporal observation points in the domain [0,1], and thus the data size is 102,912.
+
+
+The Allen-Chan equation, which is a nonlinear reaction-diffusion equation that describes the phase separation of multi-component metal alloys[32], is written as:  
+ut-0.003uxx-u+u^3=0	
+The dataset is grid data of 256 spatial observation points in the domain x in (-1,1) and 201 temporal observation points in the domain t in (0,10], and thus the data size is 51,456.  
+
+
+The Burgers equation, which has a wide application in many fields, including fluid mechanics, nonlinear acoustics, gas dynamics and traffic flow, is written as:
+ut+uux-0.1uxx=0  
+The dataset is grid data of 256 spatial observation points in the domain (-8.8) and 201 temporal observation points in the domain [0,10], and thus the data size is 51,456.
+
+
+The convection-diffusion equation, which can be employed to describe the transport of substance in a fluid (e.g., contaminant transport), is written as:
+ut+ux-0.25uxx=0
+The dataset is grid data of 256 spatial observation points in the domain [0,2] and 100 temporal observation points in the domain [0,1], and thus the data size is 25,600.

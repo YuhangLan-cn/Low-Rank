@@ -3,8 +3,7 @@
 """
 import torch
 import torch.nn as nn
-from typing import Tuple
-import torch.func as F
+from typing import Dict, List, Optional, Tuple
 
 
 class Rational(torch.nn.Module):
@@ -115,25 +114,194 @@ class U_Network(torch.nn.Module):
                     nn.init.zeros_(layer.bias)
 
 
-def u_mse_loss(
-    u_network: U_Network,
-    coords: torch.Tensor,
-    targets: torch.Tensor,
-) -> torch.Tensor:
-    """计算 U 网络的 MSE 损失函数。
-    
-    该函数用于将神经网络的预测值与观测数据进行拟合。
-    
-    Args:
-        u_network: U_Network 模型实例
-        coords: 输入坐标，形状为 (batch_size, 2)，按 [x, t] 顺序排列
-        targets: 目标值（真实数据），形状为 (batch_size,)
-        
-    Returns:
-        MSE 损失值（标量张量）
+class LowRankPDE(torch.nn.Module):
+    """连续稀疏低秩张量 PDE 右端模型。
+
+    输入为标准化后的基础原子 psi=[u, u_x, u_xx, u_xxx]，输出为 PDE 右端 F(psi)。
+    常数项和线性项单独建模，非线性交互从二阶开始使用 CP 低秩形式。
     """
-    predictions = u_network(coords).view(-1)
-    return torch.mean((predictions - targets.view(-1)) ** 2)
+
+    def __init__(
+        self,
+        atom_dim: int,
+        max_order: int = 3,
+        rank: Optional[int] = None,
+        rank_by_order: Optional[Dict[int, int]] = None,
+        data_type: torch.dtype = torch.float64,
+        device: torch.device = torch.device("cpu"),
+        gate_init: float = 4,
+    ) -> None:
+        super().__init__()
+        if max_order < 2:
+            raise ValueError(f"max_order must be >= 2, got {max_order}")
+
+        base_rank = 4 if rank is None else int(rank)
+        if base_rank < 1:
+            raise ValueError(f"rank must be >= 1, got {base_rank}")
+
+        explicit_ranks = {}
+        if rank_by_order is not None:
+            for order, order_rank in rank_by_order.items():
+                order = int(order)
+                order_rank = int(order_rank)
+                if order < 2:
+                    raise ValueError(f"PDE interaction order must be >= 2, got {order}")
+                if order > max_order:
+                    raise ValueError(
+                        f"rank_by_order contains order {order}, but max_order is {max_order}"
+                    )
+                if order_rank < 1:
+                    raise ValueError(f"Rank must be >= 1, got {order_rank} for order {order}")
+                explicit_ranks[order] = order_rank
+
+        self.atom_dim = atom_dim
+        self.max_order = max_order
+        self.rank_by_order = {
+            order: explicit_ranks.get(order, base_rank)
+            for order in range(2, max_order + 1)
+        }
+        self.rank = max(self.rank_by_order.values())
+        self.data_type = data_type
+        self.device = device
+
+        self.c = nn.Parameter(torch.zeros((), dtype=data_type, device=device))
+        self.b = nn.Parameter(torch.zeros(atom_dim, dtype=data_type, device=device))
+        self.alphas = nn.ParameterDict()
+        self.gate_logits = nn.ParameterDict()
+        self.factors = nn.ParameterDict()
+
+        for order in range(2, max_order + 1):
+            key = str(order)
+            order_rank = self.rank_by_order[order]
+            self.alphas[key] = nn.Parameter(
+                0.05 * torch.randn(order_rank, dtype=data_type, device=device)
+            )
+            self.gate_logits[key] = nn.Parameter(
+                torch.full((order_rank,), gate_init, dtype=data_type, device=device)
+            )
+            self.factors[key] = nn.Parameter(
+                torch.randn(order_rank, order, atom_dim, dtype=data_type, device=device)
+            )
+
+        self.normalize_factors_()
+
+    def forward(self, atoms: torch.Tensor, force_gates_one: bool = False) -> torch.Tensor:
+        rhs = self.c + atoms @ self.b
+
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            factors = self.factors[key]
+            projections = torch.einsum("nm,rpm->nrp", atoms, factors)
+            products = torch.prod(projections, dim=2)
+            gates = torch.ones_like(self.alphas[key]) if force_gates_one else self.gates(order)
+            rhs = rhs + products @ (gates * self.alphas[key])
+
+        return rhs.view(-1)
+
+    def gates(self, order: int) -> torch.Tensor:
+        return torch.sigmoid(self.gate_logits[str(order)])
+
+    @torch.no_grad()
+    def reset_gates_for_sparse_(self, target_gate: float = 0.5) -> None:
+        """Reset gates before sparse fitting while preserving current PDE output.
+
+        Dense fitting uses force_gates_one=True, so the learned nonlinear weight is
+        effectively alpha. Sparse fitting uses gate * alpha. Setting each gate to
+        target_gate and scaling alpha by 1 / target_gate keeps gate * alpha equal
+        to the dense-stage value at the sparse-stage start.
+        """
+        if not 0.0 < target_gate < 1.0:
+            raise ValueError(f"target_gate must be between 0 and 1, got {target_gate}")
+
+        gate_value = torch.tensor(target_gate, dtype=self.data_type, device=self.device)
+        gate_logit = torch.log(gate_value / (1.0 - gate_value))
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            self.gate_logits[key].fill_(gate_logit)
+            self.alphas[key].div_(gate_value)
+
+    def ridge_penalty(self) -> torch.Tensor:
+        penalty = torch.sum(self.b**2)
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            penalty = penalty + torch.sum(self.alphas[key] ** 2)
+            penalty = penalty + torch.sum(self.factors[key] ** 2)
+        return penalty
+
+    def sparsity_penalty(
+        self,
+        lambda_g: float,
+        lambda_alpha: float,
+        lambda_b: float,
+        lambda_w: float,
+        lambda_binary: float,
+    ) -> torch.Tensor:
+        penalty = lambda_b * torch.sum(torch.abs(self.b))
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            gates = self.gates(order)
+            penalty = penalty + lambda_g * torch.sum(torch.abs(gates))
+            penalty = penalty + lambda_alpha * torch.sum(torch.abs(self.alphas[key]))
+            penalty = penalty + lambda_w * torch.sum(torch.abs(self.factors[key]))
+            penalty = penalty + lambda_binary * torch.sum(gates * (1.0 - gates))
+        return penalty
+
+    @torch.no_grad()
+    def normalize_factors_(self, eps: float = 1e-12) -> None:
+        """归一化低秩因子，并把缩放量补偿回 alpha，保持模型输出不变。"""
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            factors = self.factors[key]
+            norms = torch.linalg.norm(factors, dim=2, keepdim=True).clamp_min(eps)
+            scale = torch.prod(norms.squeeze(-1), dim=1)
+            factors.div_(norms)
+            self.alphas[key].mul_(scale)
+
+    def effective_rank_by_order(
+        self,
+        gate_threshold: float = 0.2,
+        alpha_threshold: float = 1e-6,
+    ) -> Dict[int, int]:
+        effective_rank = {}
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            gates = self.gates(order).detach()
+            alphas = self.alphas[key].detach()
+            active = (gates >= gate_threshold) & (torch.abs(alphas) >= alpha_threshold)
+            effective_rank[order] = int(torch.sum(active).cpu().item())
+        return effective_rank
+
+    def rank_summary(
+        self,
+        gate_threshold: float = 0.2,
+        alpha_threshold: float = 1e-6,
+    ) -> List[Dict]:
+        summary = []
+        for order in range(2, self.max_order + 1):
+            key = str(order)
+            gates = self.gates(order).detach().cpu().numpy()
+            alphas = self.alphas[key].detach().cpu().numpy()
+            for rank_idx in range(len(alphas)):
+                active = bool(
+                    gates[rank_idx] >= gate_threshold
+                    and abs(alphas[rank_idx]) >= alpha_threshold
+                )
+                summary.append(
+                    {
+                        "order": order,
+                        "component": rank_idx,
+                        "gate": float(gates[rank_idx]),
+                        "alpha": float(alphas[rank_idx]),
+                        "active": active,
+                    }
+                )
+        return summary
+
+    def component_summary(self) -> List[Dict]:
+        summary = self.rank_summary(gate_threshold=0.5, alpha_threshold=1e-8)
+        for item in summary:
+            item["rank"] = item["component"]
+        return summary
 
 
 def _generate_derivative_orders(num_dims: int, max_order: int) -> list:
@@ -194,28 +362,29 @@ def evaluate_u_derivatives(
     coords: torch.Tensor,
     num_spatial_dims: int = 1,
     max_order: int = 3,
-    derivative_scales: torch.Tensor = None,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
     """使用自动微分计算 U 及其关于空间坐标的混合偏导数（最高三阶）。
 
     坐标必须按 [x1, x2, ..., xn, t] 顺序排列，其中最后一列是时间。
     
-    **重要**：原子库中**仅包含空间导数**，**不包含任何时间导数项**。
+    **重要**：这里返回的是网络输入尺度上的导数。如果 coords 是标准化坐标，
+    导数也是关于标准化坐标的导数，不能直接作为物理尺度 PDE 系数重拟合的数据。
+    PDE 发现请使用 train.py 中的 compute_physical_derivative_data。
+    
+    原子库中**仅包含空间导数**，**不包含任何时间导数项**。
     
     返回 (u, all_atoms, ut)，其中：
     - all_atoms: 形状为 (batch_size, num_atoms)，包含所有空间导数项
-      - 包括 u, u², u_x, u_xx, u_xxx（仅空间导数，最高3阶）
+      - 包括 u, u_x, u_xx, u_xxx（仅空间导数，最高3阶）
       - **不包括任何时间导数项**（u_t, u_tt, u_xt等都被排除）
     - ut: 形状为 (batch_size, 1)，u_t（关于 t 的一阶偏导数，作为方程左侧）
     
     Args:
         u_network: U_Network 模型实例
         coords: 输入坐标，形状为 (batch_size, n_dim)，按 [x1, x2, ..., xn, t] 顺序排列。
-            如果网络使用了坐标归一化，这里应传入归一化后的坐标。
+            这里应传入已经由 preprocess_data 处理好的坐标。
         num_spatial_dims: 空间维度数（例如，1D 空间时为 1，2D 空间时为 2）
         max_order: 空间混合导数的最大总阶数，默认为 3
-        derivative_scales: 链式法则缩放因子 d(normalized_coord)/d(physical_coord)。
-            若提供，返回的空间导数和 u_t 会被还原到物理坐标尺度。
         
     Returns:
         元组 (u, all_atoms, ut)，其中：
@@ -236,10 +405,6 @@ def evaluate_u_derivatives(
         raise ValueError(
             f"coords shape {coords.shape} does not match (batch_size, {total_dims})"
         )
-    if derivative_scales is None:
-        derivative_scales = torch.ones(total_dims, dtype=u_network.data_type, device=u_network.device)
-    else:
-        derivative_scales = derivative_scales.to(dtype=u_network.data_type, device=u_network.device)
 
     coords = coords.clone().detach().to(
         dtype=u_network.data_type,
@@ -265,25 +430,18 @@ def evaluate_u_derivatives(
     
     all_derivative_orders = _generate_spatial_derivative_orders(num_spatial_dims, max_order)
     
-    atoms_list = [u, u**2]
+    atoms_list = [u]
     
     for deriv_order in all_derivative_orders:
         if deriv_order == tuple([0] * (num_spatial_dims + 1)):
             continue
         
         deriv_tensor = compute_mixed_derivative(u, deriv_order)
-        if derivative_scales is not None:
-            scale = 1.0
-            for dim, order in enumerate(deriv_order):
-                scale *= (derivative_scales[dim] ** order)
-            deriv_tensor = deriv_tensor * scale
         atoms_list.append(deriv_tensor)
     
     all_atoms = torch.stack(atoms_list, dim=1)
     
     ut_order = tuple([0] * num_spatial_dims) + (1,)
     ut = compute_mixed_derivative(u, ut_order)
-    if derivative_scales is not None:
-        ut = ut * derivative_scales[-1]
     
     return u, all_atoms, ut.view(-1, 1)
