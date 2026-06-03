@@ -1,5 +1,0 @@
-{
-  "loaded_existing_model": true,
-  "training_skipped": true,
-  "model_path": "output/burgers_sine/u_network_model.pt"
-}

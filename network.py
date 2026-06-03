@@ -240,7 +240,12 @@ class LowRankPDE(torch.nn.Module):
         for order in range(2, self.max_order + 1):
             key = str(order)
             gates = self.gates(order)
-            penalty = penalty + lambda_g * torch.sum(torch.abs(gates))
+            # Penalizing sigmoid(gate_logit) gives almost no gradient when gates
+            # start near 1. softplus(logit) keeps pressure on open gates while
+            # behaving like the gate value once the logit is negative.
+            penalty = penalty + lambda_g * torch.sum(
+                torch.nn.functional.softplus(self.gate_logits[key])
+            )
             penalty = penalty + lambda_alpha * torch.sum(torch.abs(self.alphas[key]))
             penalty = penalty + lambda_w * torch.sum(torch.abs(self.factors[key]))
             penalty = penalty + lambda_binary * torch.sum(gates * (1.0 - gates))

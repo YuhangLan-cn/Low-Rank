@@ -288,6 +288,78 @@ def compute_physical_derivative_data(
     return psi.detach().cpu().numpy(), ut.detach().cpu().numpy()
 
 
+def compute_finite_difference_derivative_data(
+    coords: np.ndarray,
+    values: np.ndarray,
+    boundary: int = 3,
+) -> Tuple[np.ndarray, np.ndarray, Dict]:
+    """在规则一维时空网格上用有限差分计算 [u, u_x, u_xx, u_xxx] 和 u_t。"""
+    coords = np.asarray(coords, dtype=np.float64)
+    values = np.asarray(values, dtype=np.float64).reshape(-1)
+    if coords.ndim != 2 or coords.shape[1] != 2:
+        raise ValueError("Finite-difference PDE discovery supports only 1D data with [x, t].")
+    if coords.shape[0] != values.shape[0]:
+        raise ValueError("coords and values must have the same number of samples.")
+
+    x_values = np.unique(coords[:, 0])
+    t_values = np.unique(coords[:, 1])
+    nx, nt = len(x_values), len(t_values)
+    if nx * nt != len(values):
+        raise ValueError(
+            "Finite-difference PDE discovery requires a complete tensor-product x-t grid."
+        )
+
+    x_index = {value: idx for idx, value in enumerate(x_values)}
+    t_index = {value: idx for idx, value in enumerate(t_values)}
+    u_grid = np.empty((nx, nt), dtype=np.float64)
+    filled = np.zeros((nx, nt), dtype=bool)
+    for (x_coord, t_coord), value in zip(coords, values):
+        xi = x_index[x_coord]
+        ti = t_index[t_coord]
+        u_grid[xi, ti] = value
+        filled[xi, ti] = True
+    if not np.all(filled):
+        raise ValueError("Finite-difference grid has missing x-t samples.")
+
+    ux = np.gradient(u_grid, x_values, axis=0, edge_order=2)
+    uxx = np.gradient(ux, x_values, axis=0, edge_order=2)
+    uxxx = np.gradient(uxx, x_values, axis=0, edge_order=2)
+    ut = np.gradient(u_grid, t_values, axis=1, edge_order=2)
+
+    crop = max(0, int(boundary))
+    if crop > 0:
+        if nx <= 2 * crop or nt <= 2 * crop:
+            raise ValueError(
+                f"Finite-difference boundary crop={crop} is too large for grid shape {(nx, nt)}."
+            )
+        grid_slice = (slice(crop, -crop), slice(crop, -crop))
+    else:
+        grid_slice = (slice(None), slice(None))
+
+    atoms = np.stack(
+        [
+            u_grid[grid_slice],
+            ux[grid_slice],
+            uxx[grid_slice],
+            uxxx[grid_slice],
+        ],
+        axis=-1,
+    ).reshape(-1, len(ATOM_NAMES))
+    ut_values = ut[grid_slice].reshape(-1)
+    metadata = {
+        "method": "finite_difference",
+        "boundary": crop,
+        "grid_shape": [int(nx), int(nt)],
+        "used_grid_shape": [
+            int(u_grid[grid_slice].shape[0]),
+            int(u_grid[grid_slice].shape[1]),
+        ],
+        "x_range": [float(x_values.min()), float(x_values.max())],
+        "t_range": [float(t_values.min()), float(t_values.max())],
+    }
+    return atoms, ut_values, metadata
+
+
 def standardize_atoms(
     atoms: np.ndarray,
     mean: Optional[np.ndarray] = None,
@@ -613,6 +685,16 @@ def refit_pde_coefficients(
     support = [support[idx] for idx in final_kept]
     theta = theta[:, final_kept]
     coeffs, *_ = np.linalg.lstsq(theta, ut.reshape(-1), rcond=None)
+    post_refit_kept = [
+        idx for idx, coeff in enumerate(coeffs)
+        if abs(coeff) >= coefficient_threshold
+    ]
+    if not post_refit_kept:
+        return {}, zero_rhs_residual_mse(ut)
+
+    support = [support[idx] for idx in post_refit_kept]
+    theta = theta[:, post_refit_kept]
+    coeffs = coeffs[post_refit_kept]
     predictions = theta @ coeffs
     residual = pde_residual_mse(ut, predictions)
     coefficients = {key: float(coeff) for key, coeff in zip(support, coeffs)}
@@ -624,6 +706,10 @@ def discover_pde(
     coords: np.ndarray,
     preprocessing_info: Dict,
     coords_val: Optional[np.ndarray] = None,
+    raw_coords: Optional[np.ndarray] = None,
+    raw_values: Optional[np.ndarray] = None,
+    derivative_method: str = "autograd",
+    fd_boundary: int = 3,
     max_order: int = 3,
     rank: Optional[int] = 4,
     rank_by_order: Optional[Dict[int, int]] = None,
@@ -647,7 +733,23 @@ def discover_pde(
     verbose: bool = True,
 ) -> Dict:
     """完整 PDE 发现流程：导数、低秩训练、展开、剪枝和最小二乘重拟合。"""
-    atoms_phys, ut_phys = compute_physical_derivative_data(model, coords, preprocessing_info)
+    finite_difference_metadata = None
+    if derivative_method == "autograd":
+        atoms_phys, ut_phys = compute_physical_derivative_data(model, coords, preprocessing_info)
+    elif derivative_method == "finite_difference":
+        if raw_coords is None or raw_values is None:
+            raise ValueError(
+                "raw_coords and raw_values are required when derivative_method='finite_difference'."
+            )
+        atoms_phys, ut_phys, finite_difference_metadata = compute_finite_difference_derivative_data(
+            raw_coords,
+            raw_values,
+            boundary=fd_boundary,
+        )
+        coords_val = None
+    else:
+        raise ValueError(f"Unknown derivative_method: {derivative_method}")
+
     atoms_std, atom_mean, atom_std = standardize_atoms(atoms_phys)
     ut_std_target, ut_mean, ut_std = standardize_values(ut_phys)
 
@@ -655,7 +757,7 @@ def discover_pde(
     ut_val_std_target = None
     atoms_val_phys = None
     ut_val_phys = None
-    if coords_val is not None:
+    if derivative_method == "autograd" and coords_val is not None:
         atoms_val_phys, ut_val_phys = compute_physical_derivative_data(
             model, coords_val, preprocessing_info
         )
@@ -768,6 +870,8 @@ def discover_pde(
         "effective_rank_by_order": effective_rank,
         "rank_summary": rank_summary,
         "sparse_gate_init": sparse_gate_init,
+        "derivative_method": derivative_method,
+        "finite_difference": finite_difference_metadata,
         "atom_statistics": {
             "mean": atom_mean.tolist(),
             "std": atom_std.tolist(),

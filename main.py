@@ -15,8 +15,10 @@ import argparse
 import json
 import numpy as np
 import random
+import shlex
+import sys
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import torch
 
@@ -96,6 +98,59 @@ def preprocessing_matches(saved_info: Dict, current_info: Dict) -> bool:
             return False
 
     return saved_info.get("standardization") == current_info.get("standardization")
+
+
+def build_reproduce_command(
+    parser: argparse.ArgumentParser,
+    args: argparse.Namespace,
+    entrypoint: str = "main.py",
+    python_executable: Optional[str] = None,
+) -> str:
+    """生成包含当前 argparse 参数的可复制复现实验命令。"""
+    command_parts: List[str] = [python_executable or sys.executable or "python", "-u", entrypoint]
+
+    for action in parser._actions:
+        if isinstance(action, argparse._HelpAction):
+            continue
+        option = next((opt for opt in action.option_strings if opt.startswith("--")), None)
+        if option is None:
+            continue
+
+        value = getattr(args, action.dest)
+        if isinstance(action, argparse._StoreTrueAction):
+            if value:
+                command_parts.append(option)
+            continue
+        if isinstance(action, argparse._StoreFalseAction):
+            if not value:
+                command_parts.append(option)
+            continue
+        if value is None:
+            continue
+
+        command_parts.extend([option, str(value)])
+
+    return " ".join(shlex.quote(part) for part in command_parts)
+
+
+def build_run_metadata(
+    parser: argparse.ArgumentParser,
+    args: argparse.Namespace,
+    device: str,
+    input_file: Path,
+    output_dir: Path,
+    model_path: Path,
+) -> Dict[str, Any]:
+    """收集本次运行的全部参数和复现命令。"""
+    return {
+        "arguments": vars(args),
+        "device": device,
+        "input_file": str(input_file),
+        "output_dir": str(output_dir),
+        "model_path": str(model_path),
+        "python_executable": sys.executable,
+        "reproduce_command": build_reproduce_command(parser, args),
+    }
 
 
 def load_data(
@@ -307,6 +362,18 @@ def main() -> None:
     parser.add_argument("--pde-term-threshold", type=float, default=1e-6, help="展开单项式剪枝阈值")
     parser.add_argument("--pde-coefficient-threshold", type=float, default=1e-6, help="重拟合系数剪枝阈值")
     parser.add_argument(
+        "--pde-derivative-method",
+        choices=["autograd", "finite_difference"],
+        default="autograd",
+        help="PDE 发现导数来源：代理网络自动微分或原始网格有限差分",
+    )
+    parser.add_argument(
+        "--pde-fd-boundary",
+        type=int,
+        default=3,
+        help="finite_difference 模式下裁掉的空间/时间边界点数",
+    )
+    parser.add_argument(
         "--true-pde-json",
         default='{"u*u_x": -1.0, "u_xx": 0.1}',
         help='可选真实 PDE 系数字典，例如 {"u*u_x": -1.0, "u_xx": 0.1}',
@@ -356,7 +423,16 @@ def main() -> None:
     print("Step 1: Loading Data")
     print("="*60)
     input_file = Path(args.input_path) / f"{args.data}.npy"
+    run_metadata = build_run_metadata(
+        parser=parser,
+        args=args,
+        device=device,
+        input_file=input_file,
+        output_dir=output_dir,
+        model_path=model_path,
+    )
     coords, values, input_dim = load_data(str(input_file))
+    run_metadata["input_dim"] = input_dim
     print(f"  Automatically detected input_dim: {input_dim}")
     
     # ===== 步骤 2: 预处理数据 =====
@@ -498,6 +574,10 @@ def main() -> None:
             coords=coords_train,
             preprocessing_info=preprocessing_info,
             coords_val=coords_val,
+            raw_coords=coords,
+            raw_values=values,
+            derivative_method=args.pde_derivative_method,
+            fd_boundary=args.pde_fd_boundary,
             max_order=pde_max_order,
             rank=args.pde_rank,
             rank_by_order=rank_by_order,
@@ -540,9 +620,17 @@ def main() -> None:
     
     # 保存训练日志
     train_log_path = training_log_path
+    train_log["run_metadata"] = run_metadata
+    train_log["run_arguments"] = run_metadata["arguments"]
+    train_log["reproduce_command"] = run_metadata["reproduce_command"]
     with open(train_log_path, "w") as f:
         json.dump(train_log, f, indent=2)
     print(f"Training log saved to {train_log_path}")
+
+    reproduce_command_path = output_dir / "reproduce_command.txt"
+    with open(reproduce_command_path, "w") as f:
+        f.write(run_metadata["reproduce_command"] + "\n")
+    print(f"Reproduce command saved to {reproduce_command_path}")
     
     # 保存指标
     metrics_path = output_dir / "metrics.json" 
