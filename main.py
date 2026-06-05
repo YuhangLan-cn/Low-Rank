@@ -362,6 +362,36 @@ def main() -> None:
     parser.add_argument("--pde-term-threshold", type=float, default=1e-6, help="展开单项式剪枝阈值")
     parser.add_argument("--pde-coefficient-threshold", type=float, default=1e-6, help="重拟合系数剪枝阈值")
     parser.add_argument(
+        "--pde-prune-metric",
+        choices=["coefficient", "contribution", "stlsq", "stridge"],
+        default="coefficient",
+        help="PDE 单项式剪枝依据：裸系数、相对贡献、RMS 归一化 STLSQ 或 STRidge",
+    )
+    parser.add_argument(
+        "--pde-contribution-threshold",
+        type=float,
+        default=1e-3,
+        help="contribution 剪枝模式下的相对贡献阈值",
+    )
+    parser.add_argument(
+        "--pde-candidate-contribution-threshold",
+        type=float,
+        default=None,
+        help="contribution 剪枝模式下候选单项式的相对贡献阈值；默认沿用 --pde-contribution-threshold",
+    )
+    parser.add_argument(
+        "--pde-stlsq-threshold",
+        type=float,
+        default=3e-2,
+        help="stlsq/stridge 剪枝模式下 RMS 归一化系数阈值",
+    )
+    parser.add_argument(
+        "--pde-stridge-lambda",
+        type=float,
+        default=1e-5,
+        help="stridge 剪枝模式下岭回归正则系数",
+    )
+    parser.add_argument(
         "--pde-derivative-method",
         choices=["autograd", "finite_difference"],
         default="autograd",
@@ -596,6 +626,11 @@ def main() -> None:
             w_threshold=args.pde_w_threshold,
             term_threshold=args.pde_term_threshold,
             coefficient_threshold=args.pde_coefficient_threshold,
+            prune_metric=args.pde_prune_metric,
+            contribution_threshold=args.pde_contribution_threshold,
+            candidate_contribution_threshold=args.pde_candidate_contribution_threshold,
+            stlsq_threshold=args.pde_stlsq_threshold,
+            stridge_lambda=args.pde_stridge_lambda,
             true_coefficients=true_coefficients,
             verbose=True,
         )

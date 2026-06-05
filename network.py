@@ -117,7 +117,7 @@ class U_Network(torch.nn.Module):
 class LowRankPDE(torch.nn.Module):
     """连续稀疏低秩张量 PDE 右端模型。
 
-    输入为标准化后的基础原子 psi=[u, u_x, u_xx, u_xxx]，输出为 PDE 右端 F(psi)。
+    输入为标准化后的基础原子 psi=[u, u_x, u_xx, u_xxx, u_xxxx]，输出为 PDE 右端 F(psi)。
     常数项和线性项单独建模，非线性交互从二阶开始使用 CP 低秩形式。
     """
 
@@ -366,9 +366,9 @@ def evaluate_u_derivatives(
     u_network: U_Network,
     coords: torch.Tensor,
     num_spatial_dims: int = 1,
-    max_order: int = 3,
+    max_order: int = 4,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    """使用自动微分计算 U 及其关于空间坐标的混合偏导数（最高三阶）。
+    """使用自动微分计算 U 及其关于空间坐标的混合偏导数（默认最高四阶）。
 
     坐标必须按 [x1, x2, ..., xn, t] 顺序排列，其中最后一列是时间。
     
@@ -380,7 +380,7 @@ def evaluate_u_derivatives(
     
     返回 (u, all_atoms, ut)，其中：
     - all_atoms: 形状为 (batch_size, num_atoms)，包含所有空间导数项
-      - 包括 u, u_x, u_xx, u_xxx（仅空间导数，最高3阶）
+      - 默认包括 u, u_x, u_xx, u_xxx, u_xxxx（仅空间导数，最高4阶）
       - **不包括任何时间导数项**（u_t, u_tt, u_xt等都被排除）
     - ut: 形状为 (batch_size, 1)，u_t（关于 t 的一阶偏导数，作为方程左侧）
     
@@ -389,7 +389,7 @@ def evaluate_u_derivatives(
         coords: 输入坐标，形状为 (batch_size, n_dim)，按 [x1, x2, ..., xn, t] 顺序排列。
             这里应传入已经由 preprocess_data 处理好的坐标。
         num_spatial_dims: 空间维度数（例如，1D 空间时为 1，2D 空间时为 2）
-        max_order: 空间混合导数的最大总阶数，默认为 3
+        max_order: 空间混合导数的最大总阶数，默认为 4
         
     Returns:
         元组 (u, all_atoms, ut)，其中：

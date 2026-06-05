@@ -4,7 +4,7 @@
 import torch
 import numpy as np
 from collections import defaultdict
-from typing import Tuple, Optional, Dict, List
+from typing import Tuple, Optional, Dict, List, Union
 
 from network import LowRankPDE, U_Network
 from loss import regularized_loss
@@ -18,7 +18,7 @@ from measure import (
 )
 
 
-ATOM_NAMES = ["u", "u_x", "u_xx", "u_xxx"]
+ATOM_NAMES = ["u", "u_x", "u_xx", "u_xxx", "u_xxxx"]
 
 
 def train_u_network(
@@ -237,7 +237,7 @@ def compute_physical_derivative_data(
 ) -> Tuple[np.ndarray, np.ndarray]:
     """在标准化坐标上自动微分，并还原为物理尺度的 PDE 原子和 u_t。
 
-    返回 psi=[u, u_x, u_xx, u_xxx] 和 u_t，均为原始物理尺度。
+    返回 psi=[u, u_x, u_xx, u_xxx, u_xxxx] 和 u_t，均为原始物理尺度。
     第一版仅支持一维空间坐标 [x, t]。
     """
     if model.input_dim != 2:
@@ -274,6 +274,12 @@ def compute_physical_derivative_data(
     uxxx_hat = torch.autograd.grad(
         uxx_hat.sum(),
         coords_tensor,
+        create_graph=True,
+        retain_graph=True,
+    )[0][:, 0]
+    uxxxx_hat = torch.autograd.grad(
+        uxxx_hat.sum(),
+        coords_tensor,
         create_graph=False,
         retain_graph=False,
     )[0][:, 0]
@@ -282,9 +288,10 @@ def compute_physical_derivative_data(
     ux = ux_hat * (value_std / x_std)
     uxx = uxx_hat * (value_std / (x_std**2))
     uxxx = uxxx_hat * (value_std / (x_std**3))
+    uxxxx = uxxxx_hat * (value_std / (x_std**4))
     ut = ut_hat * (value_std / t_std)
 
-    psi = torch.stack([u, ux, uxx, uxxx], dim=1)
+    psi = torch.stack([u, ux, uxx, uxxx, uxxxx], dim=1)
     return psi.detach().cpu().numpy(), ut.detach().cpu().numpy()
 
 
@@ -293,7 +300,7 @@ def compute_finite_difference_derivative_data(
     values: np.ndarray,
     boundary: int = 3,
 ) -> Tuple[np.ndarray, np.ndarray, Dict]:
-    """在规则一维时空网格上用有限差分计算 [u, u_x, u_xx, u_xxx] 和 u_t。"""
+    """在规则一维时空网格上用有限差分计算 [u, u_x, u_xx, u_xxx, u_xxxx] 和 u_t。"""
     coords = np.asarray(coords, dtype=np.float64)
     values = np.asarray(values, dtype=np.float64).reshape(-1)
     if coords.ndim != 2 or coords.shape[1] != 2:
@@ -324,6 +331,7 @@ def compute_finite_difference_derivative_data(
     ux = np.gradient(u_grid, x_values, axis=0, edge_order=2)
     uxx = np.gradient(ux, x_values, axis=0, edge_order=2)
     uxxx = np.gradient(uxx, x_values, axis=0, edge_order=2)
+    uxxxx = np.gradient(uxxx, x_values, axis=0, edge_order=2)
     ut = np.gradient(u_grid, t_values, axis=1, edge_order=2)
 
     crop = max(0, int(boundary))
@@ -342,6 +350,7 @@ def compute_finite_difference_derivative_data(
             ux[grid_slice],
             uxx[grid_slice],
             uxxx[grid_slice],
+            uxxxx[grid_slice],
         ],
         axis=-1,
     ).reshape(-1, len(ATOM_NAMES))
@@ -660,37 +669,141 @@ def build_candidate_matrix(atoms: np.ndarray, support: List[Tuple[int, ...]]) ->
     return np.column_stack(columns)
 
 
+def compute_term_contribution_importance(
+    theta: np.ndarray,
+    coeffs: np.ndarray,
+    ut: np.ndarray,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """计算每个候选项 coef * term 的绝对和相对 RMS 贡献。"""
+    if theta.shape[1] == 0:
+        return np.zeros(0, dtype=np.float64), np.zeros(0, dtype=np.float64)
+
+    coeffs = np.asarray(coeffs, dtype=np.float64).reshape(1, -1)
+    contributions = theta * coeffs
+    absolute = np.sqrt(np.mean(contributions ** 2, axis=0))
+    target_scale = float(np.sqrt(np.mean(np.asarray(ut, dtype=np.float64).reshape(-1) ** 2)))
+    target_scale = max(target_scale, 1e-12)
+    relative = absolute / target_scale
+    return absolute, relative
+
+
+def select_terms_by_prune_metric(
+    theta: np.ndarray,
+    coeffs: np.ndarray,
+    ut: np.ndarray,
+    coefficient_threshold: float,
+    prune_metric: str = "coefficient",
+    contribution_threshold: float = 1e-3,
+) -> Tuple[List[int], List[Dict]]:
+    """按裸系数或 coef*term 相对贡献选择保留项，并返回诊断信息。"""
+    coeffs = np.asarray(coeffs, dtype=np.float64).reshape(-1)
+    absolute, relative = compute_term_contribution_importance(theta, coeffs, ut)
+    kept = []
+    diagnostics = []
+    for idx, coeff in enumerate(coeffs):
+        coefficient_abs = float(abs(coeff))
+        contribution_abs = float(absolute[idx])
+        contribution_rel = float(relative[idx])
+
+        if prune_metric == "coefficient":
+            score = coefficient_abs
+            threshold = coefficient_threshold
+        elif prune_metric == "contribution":
+            score = contribution_rel
+            threshold = contribution_threshold
+        else:
+            raise ValueError(f"Unknown prune_metric: {prune_metric}")
+
+        is_kept = bool(score >= threshold)
+        if is_kept:
+            kept.append(idx)
+        diagnostics.append(
+            {
+                "index": idx,
+                "coefficient": float(coeff),
+                "coefficient_abs": coefficient_abs,
+                "contribution_rms": contribution_abs,
+                "relative_contribution": contribution_rel,
+                "score": float(score),
+                "threshold": float(threshold),
+                "kept": is_kept,
+            }
+        )
+    return kept, diagnostics
+
+
 def refit_pde_coefficients(
     atoms: np.ndarray,
     ut: np.ndarray,
     support: List[Tuple[int, ...]],
     coefficient_threshold: float = 1e-8,
-) -> Tuple[Dict[Tuple[int, ...], float], float]:
+    prune_metric: str = "coefficient",
+    contribution_threshold: float = 1e-3,
+    stlsq_threshold: float = 3e-2,
+    stridge_lambda: float = 1e-5,
+    return_diagnostics: bool = False,
+) -> Union[
+    Tuple[Dict[Tuple[int, ...], float], float],
+    Tuple[Dict[Tuple[int, ...], float], float, List[Dict]],
+]:
     if not support:
-        return {}, zero_rhs_residual_mse(ut)
+        empty = ({}, zero_rhs_residual_mse(ut))
+        return (*empty, []) if return_diagnostics else empty
 
     theta = build_candidate_matrix(atoms, support)
+    if prune_metric in {"stlsq", "stridge"}:
+        coefficients, residual, diagnostics = refit_pde_coefficients_sequential(
+            theta=theta,
+            ut=ut,
+            support=support,
+            threshold=stlsq_threshold,
+            ridge_lambda=stridge_lambda if prune_metric == "stridge" else 0.0,
+        )
+        return (coefficients, residual, diagnostics) if return_diagnostics else (coefficients, residual)
+
     coeffs, *_ = np.linalg.lstsq(theta, ut.reshape(-1), rcond=None)
-    kept = [idx for idx, coeff in enumerate(coeffs) if abs(coeff) >= coefficient_threshold]
+    kept, _ = select_terms_by_prune_metric(
+        theta=theta,
+        coeffs=coeffs,
+        ut=ut,
+        coefficient_threshold=coefficient_threshold,
+        prune_metric=prune_metric,
+        contribution_threshold=contribution_threshold,
+    )
     if not kept:
-        return {}, zero_rhs_residual_mse(ut)
+        empty = ({}, zero_rhs_residual_mse(ut))
+        return (*empty, []) if return_diagnostics else empty
 
     support = [support[idx] for idx in kept]
     theta = theta[:, kept]
     coeffs, *_ = np.linalg.lstsq(theta, ut.reshape(-1), rcond=None)
-    final_kept = [idx for idx, coeff in enumerate(coeffs) if abs(coeff) >= coefficient_threshold]
+    final_kept, _ = select_terms_by_prune_metric(
+        theta=theta,
+        coeffs=coeffs,
+        ut=ut,
+        coefficient_threshold=coefficient_threshold,
+        prune_metric=prune_metric,
+        contribution_threshold=contribution_threshold,
+    )
     if not final_kept:
-        return {}, zero_rhs_residual_mse(ut)
+        empty = ({}, zero_rhs_residual_mse(ut))
+        return (*empty, []) if return_diagnostics else empty
 
     support = [support[idx] for idx in final_kept]
     theta = theta[:, final_kept]
     coeffs, *_ = np.linalg.lstsq(theta, ut.reshape(-1), rcond=None)
-    post_refit_kept = [
-        idx for idx, coeff in enumerate(coeffs)
-        if abs(coeff) >= coefficient_threshold
-    ]
+    support_before_post_prune = list(support)
+    post_refit_kept, diagnostics = select_terms_by_prune_metric(
+        theta=theta,
+        coeffs=coeffs,
+        ut=ut,
+        coefficient_threshold=coefficient_threshold,
+        prune_metric=prune_metric,
+        contribution_threshold=contribution_threshold,
+    )
     if not post_refit_kept:
-        return {}, zero_rhs_residual_mse(ut)
+        empty = ({}, zero_rhs_residual_mse(ut))
+        return (*empty, diagnostics) if return_diagnostics else empty
 
     support = [support[idx] for idx in post_refit_kept]
     theta = theta[:, post_refit_kept]
@@ -698,7 +811,122 @@ def refit_pde_coefficients(
     predictions = theta @ coeffs
     residual = pde_residual_mse(ut, predictions)
     coefficients = {key: float(coeff) for key, coeff in zip(support, coeffs)}
+    if return_diagnostics:
+        for item, key in zip(diagnostics, support_before_post_prune):
+            item["term"] = _term_name(key, ATOM_NAMES)
+        return coefficients, residual, diagnostics
     return coefficients, residual
+
+
+def _solve_normalized_regression(
+    normalized_theta: np.ndarray,
+    ut: np.ndarray,
+    ridge_lambda: float,
+) -> np.ndarray:
+    if ridge_lambda <= 0.0:
+        coeffs, *_ = np.linalg.lstsq(normalized_theta, ut, rcond=None)
+        return coeffs
+
+    gram = normalized_theta.T @ normalized_theta
+    rhs = normalized_theta.T @ ut
+    return np.linalg.solve(
+        gram + ridge_lambda * np.eye(gram.shape[0], dtype=gram.dtype),
+        rhs,
+    )
+
+
+def refit_pde_coefficients_sequential(
+    theta: np.ndarray,
+    ut: np.ndarray,
+    support: List[Tuple[int, ...]],
+    threshold: float = 3e-2,
+    ridge_lambda: float = 0.0,
+    max_iter: int = 20,
+) -> Tuple[Dict[Tuple[int, ...], float], float, List[Dict]]:
+    """Sequential thresholded LS/Ridge on RMS-normalized candidate columns.
+
+    The threshold is applied to coefficients after each candidate term column is
+    normalized to unit RMS. This avoids comparing raw coefficients across terms
+    whose magnitudes differ by orders of magnitude, which is common when high
+    spatial derivatives appear in the candidate library. A positive
+    ridge_lambda gives the STRidge variant used by PDE-FIND.
+    """
+    if theta.shape[1] == 0:
+        return {}, zero_rhs_residual_mse(ut), []
+
+    ut = np.asarray(ut, dtype=np.float64).reshape(-1)
+    column_scale = np.sqrt(np.mean(theta**2, axis=0))
+    column_scale = np.maximum(column_scale, 1e-12)
+    normalized_theta = theta / column_scale.reshape(1, -1)
+    active = np.ones(theta.shape[1], dtype=bool)
+    scaled_coeffs = np.zeros(theta.shape[1], dtype=np.float64)
+
+    for _ in range(max_iter):
+        active_indices = np.flatnonzero(active)
+        if active_indices.size == 0:
+            break
+
+        coeffs_active = _solve_normalized_regression(
+            normalized_theta[:, active_indices],
+            ut,
+            ridge_lambda,
+        )
+        next_active = active.copy()
+        next_active[active_indices[np.abs(coeffs_active) < threshold]] = False
+        if not next_active.any():
+            strongest = active_indices[int(np.argmax(np.abs(coeffs_active)))]
+            next_active[strongest] = True
+
+        scaled_coeffs.fill(0.0)
+        scaled_coeffs[active_indices] = coeffs_active
+        if np.array_equal(next_active, active):
+            break
+        active = next_active
+
+    active_indices = np.flatnonzero(active)
+    if active_indices.size == 0:
+        return {}, zero_rhs_residual_mse(ut), []
+
+    coeffs_active = _solve_normalized_regression(
+        normalized_theta[:, active_indices],
+        ut,
+        ridge_lambda,
+    )
+    scaled_coeffs.fill(0.0)
+    scaled_coeffs[active_indices] = coeffs_active
+    physical_coeffs = scaled_coeffs / column_scale
+    predictions = theta @ physical_coeffs
+    residual = pde_residual_mse(ut, predictions)
+
+    absolute, relative = compute_term_contribution_importance(theta, physical_coeffs, ut)
+    diagnostics = []
+    for idx, key in enumerate(support):
+        kept = bool(active[idx])
+        scaled_abs = float(abs(scaled_coeffs[idx]))
+        diagnostics.append(
+            {
+                "index": idx,
+                "term": _term_name(key, ATOM_NAMES),
+                "coefficient": float(physical_coeffs[idx]),
+                "coefficient_abs": float(abs(physical_coeffs[idx])),
+                "scaled_coefficient": float(scaled_coeffs[idx]),
+                "scaled_coefficient_abs": scaled_abs,
+                "column_rms": float(column_scale[idx]),
+                "contribution_rms": float(absolute[idx]),
+                "relative_contribution": float(relative[idx]),
+                "score": scaled_abs,
+                "threshold": float(threshold),
+                "ridge_lambda": float(ridge_lambda),
+                "kept": kept,
+            }
+        )
+
+    coefficients = {
+        key: float(physical_coeffs[idx])
+        for idx, key in enumerate(support)
+        if active[idx]
+    }
+    return coefficients, residual, diagnostics
 
 
 def discover_pde(
@@ -729,6 +957,11 @@ def discover_pde(
     w_threshold: float = 1e-3,
     term_threshold: float = 1e-8,
     coefficient_threshold: float = 1e-8,
+    prune_metric: str = "coefficient",
+    contribution_threshold: float = 1e-3,
+    candidate_contribution_threshold: Optional[float] = None,
+    stlsq_threshold: float = 3e-2,
+    stridge_lambda: float = 1e-5,
     true_coefficients: Optional[Dict[str, float]] = None,
     verbose: bool = True,
 ) -> Dict:
@@ -833,14 +1066,55 @@ def discover_pde(
         alpha_threshold=alpha_threshold,
         b_threshold=b_threshold,
         w_threshold=w_threshold,
-        term_threshold=term_threshold,
+        term_threshold=0.0 if prune_metric == "contribution" else term_threshold,
     )
+    candidate_pruning = []
+    candidate_contribution_threshold = (
+        contribution_threshold
+        if candidate_contribution_threshold is None
+        else candidate_contribution_threshold
+    )
+    if prune_metric == "contribution" and candidate_coefficients:
+        candidate_support = sorted(candidate_coefficients.keys(), key=lambda key: (len(key), key))
+        candidate_theta = build_candidate_matrix(atoms_phys, candidate_support)
+        candidate_coeffs = np.asarray(
+            [candidate_coefficients[key] for key in candidate_support],
+            dtype=np.float64,
+        )
+        candidate_kept, candidate_pruning = select_terms_by_prune_metric(
+            theta=candidate_theta,
+            coeffs=candidate_coeffs,
+            ut=ut_phys,
+            coefficient_threshold=term_threshold,
+            prune_metric=prune_metric,
+            contribution_threshold=candidate_contribution_threshold,
+        )
+        candidate_kept_set = set(candidate_kept)
+        for item, key in zip(candidate_pruning, candidate_support):
+            item["term"] = _term_name(key, ATOM_NAMES)
+            item["coefficient_estimate"] = item["coefficient"]
+            item["protected_linear_candidate"] = len(key) <= 1
+            if item["protected_linear_candidate"]:
+                item["kept"] = True
+                candidate_kept_set.add(item["index"])
+        candidate_kept = sorted(candidate_kept_set)
+        candidate_coefficients = {
+            candidate_support[idx]: candidate_coefficients[candidate_support[idx]]
+            for idx in candidate_kept
+        }
+        expanded_terms = [item for item in candidate_pruning if item["kept"]]
+
     support = sorted(candidate_coefficients.keys(), key=lambda key: (len(key), key))
-    coefficients, residual_mse = refit_pde_coefficients(
+    coefficients, residual_mse, final_term_importance = refit_pde_coefficients(
         atoms=atoms_phys,
         ut=ut_phys,
         support=support,
         coefficient_threshold=coefficient_threshold,
+        prune_metric=prune_metric,
+        contribution_threshold=contribution_threshold,
+        stlsq_threshold=stlsq_threshold,
+        stridge_lambda=stridge_lambda,
+        return_diagnostics=True,
     )
 
     validation_residual = None
@@ -890,6 +1164,13 @@ def discover_pde(
         },
         "retained_components": retained_components,
         "expanded_terms": expanded_terms,
+        "prune_metric": prune_metric,
+        "contribution_threshold": contribution_threshold,
+        "candidate_contribution_threshold": candidate_contribution_threshold,
+        "stlsq_threshold": stlsq_threshold,
+        "stridge_lambda": stridge_lambda,
+        "candidate_term_importance": candidate_pruning,
+        "final_term_importance": final_term_importance,
         "candidate_support": [_term_name(key, ATOM_NAMES) for key in support],
         "final_support": list(coefficients_by_name.keys()),
         "coefficients": coefficients_by_name,

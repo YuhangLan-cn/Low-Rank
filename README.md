@@ -138,7 +138,7 @@ atoms, ut = compute_physical_derivative_data(
     preprocessing_info,
 )
 
-# atoms 是物理尺度的 [u, u_x, u_xx, u_xxx]
+# atoms 是物理尺度的 [u, u_x, u_xx, u_xxx, u_xxxx]
 # ut 是物理尺度的 u_t
 ```
 
@@ -212,7 +212,7 @@ atoms, ut = compute_physical_derivative_data(
 ```python
 from train import compute_physical_derivative_data
 atoms, ut = compute_physical_derivative_data(model, coords, preprocessing_info)
-# atoms 是物理尺度的 [u, u_x, u_xx, u_xxx]
+# atoms 是物理尺度的 [u, u_x, u_xx, u_xxx, u_xxxx]
 ```
 
 ### Q: 如何保存和加载模型？

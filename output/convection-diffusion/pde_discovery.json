@@ -1,3435 +1,2934 @@
 {
-  "pde_string": "u_t = -12.8491 * u^3 - 6.54176 * u^2*u_x + 5.0546 * u^2 - 1.91591 * u - 1.60929 * u^2*u_xx - 1.43478 * u*u_x^2 + 1.00975 * u*u_x - 0.808647 * u_x + 0.482756 * u*u_xx + 0.411247 * u_x^2 - 0.31876 * u*u_x*u_xx + 0.123876 - 0.103294 * u_x^3 - 0.0522267 * u*u_xx^2 + 0.0298027 * u_xx",
+  "pde_string": "u_t = -1.00063 * u_x + 0.249869 * u_xx",
   "atom_names": [
     "u",
     "u_x",
     "u_xx",
-    "u_xxx"
+    "u_xxx",
+    "u_xxxx"
   ],
   "rank_by_order_max": {
     "2": 8,
     "3": 8
   },
   "effective_rank_by_order": {
-    "2": 5,
-    "3": 8
+    "2": 2,
+    "3": 7
   },
   "rank_summary": [
     {
       "order": 2,
       "component": 0,
-      "gate": 0.3221026708643816,
-      "alpha": 0.41652557199688206,
+      "gate": 0.32012440175680656,
+      "alpha": -0.5859313518133987,
       "active": false
     },
     {
       "order": 2,
       "component": 1,
-      "gate": 0.4446875073785429,
-      "alpha": -0.3118521172178876,
+      "gate": 0.4721916299382362,
+      "alpha": -0.7460270132813701,
       "active": true
     },
     {
       "order": 2,
       "component": 2,
-      "gate": 0.359659047677887,
-      "alpha": 0.3326799619515668,
+      "gate": 0.3481089626909609,
+      "alpha": -0.1181014195040967,
       "active": false
     },
     {
       "order": 2,
       "component": 3,
-      "gate": 0.41474876652647125,
-      "alpha": -0.4832004489324106,
-      "active": true
+      "gate": 0.274673842538671,
+      "alpha": -0.4134612173599129,
+      "active": false
     },
     {
       "order": 2,
       "component": 4,
-      "gate": 0.44607397306354785,
-      "alpha": -0.1987116183952126,
-      "active": true
+      "gate": 0.3669026225309154,
+      "alpha": 0.2063715064723179,
+      "active": false
     },
     {
       "order": 2,
       "component": 5,
-      "gate": 0.4272104641255577,
-      "alpha": -0.2630678055277403,
+      "gate": 0.4135082568214659,
+      "alpha": 0.7292752626423596,
       "active": true
     },
     {
       "order": 2,
       "component": 6,
-      "gate": 0.3997978280250098,
-      "alpha": -0.33033737135964975,
+      "gate": 0.3847879825830826,
+      "alpha": -0.32567577849970786,
       "active": false
     },
     {
       "order": 2,
       "component": 7,
-      "gate": 0.44507362669361045,
-      "alpha": 0.5111578880144058,
-      "active": true
+      "gate": 0.2947636123385587,
+      "alpha": 0.19892834627760678,
+      "active": false
     },
     {
       "order": 3,
       "component": 0,
-      "gate": 0.4755159745477189,
-      "alpha": 0.4068417535949479,
+      "gate": 0.4693124930338002,
+      "alpha": -0.94619878400449,
       "active": true
     },
     {
       "order": 3,
       "component": 1,
-      "gate": 0.5249816968145726,
-      "alpha": 0.4448150234352676,
-      "active": true
+      "gate": 0.2946133143426308,
+      "alpha": 0.05863229020278042,
+      "active": false
     },
     {
       "order": 3,
       "component": 2,
-      "gate": 0.4960661531549925,
-      "alpha": 0.52402305069967,
+      "gate": 0.47086577550586206,
+      "alpha": -0.2571729201826705,
       "active": true
     },
     {
       "order": 3,
       "component": 3,
-      "gate": 0.49524500994271664,
-      "alpha": -0.2101217009289787,
+      "gate": 0.5169790015617985,
+      "alpha": -0.6131946852647104,
       "active": true
     },
     {
       "order": 3,
       "component": 4,
-      "gate": 0.4951825653504825,
-      "alpha": 0.7236496176137333,
+      "gate": 0.47440823388917075,
+      "alpha": 2.180517296239495,
       "active": true
     },
     {
       "order": 3,
       "component": 5,
-      "gate": 0.47633021859365776,
-      "alpha": -0.4247318887436661,
+      "gate": 0.4903945588731395,
+      "alpha": 1.6254803956228896,
       "active": true
     },
     {
       "order": 3,
       "component": 6,
-      "gate": 0.4924581253176499,
-      "alpha": -0.4453784472167546,
+      "gate": 0.47934377730824007,
+      "alpha": -0.8253563952269237,
       "active": true
     },
     {
       "order": 3,
       "component": 7,
-      "gate": 0.4984860941787647,
-      "alpha": -0.4314130056039218,
+      "gate": 0.40581485464585615,
+      "alpha": -0.4071632519787475,
       "active": true
     }
   ],
   "sparse_gate_init": 0.5,
+  "derivative_method": "finite_difference",
+  "finite_difference": {
+    "method": "finite_difference",
+    "boundary": 5,
+    "grid_shape": [
+      256,
+      100
+    ],
+    "used_grid_shape": [
+      246,
+      90
+    ],
+    "x_range": [
+      0.0,
+      2.0
+    ],
+    "t_range": [
+      0.0,
+      1.0
+    ]
+  },
   "atom_statistics": {
     "mean": [
-      0.11376155906745973,
-      0.0005181945969036904,
-      -0.1274105290001017,
-      1.8573044966443952
+      0.11964763141633797,
+      -0.006061515450134993,
+      -0.1483484765163684,
+      -0.36591469778362046,
+      -0.9668012157473543
     ],
     "std": [
-      0.13873285574366306,
-      0.4552181975198228,
-      1.9905600401109318,
-      171.7808477631123
+      0.12874673916544424,
+      0.409655315715537,
+      1.357594605937841,
+      5.576129673300949,
+      27.755492057037383
     ]
   },
   "target_statistics": {
     "name": "u_t",
-    "mean": -0.038275448851798906,
-    "std": 0.593780542432835,
+    "mean": -0.031061516773266643,
+    "std": 0.5248435254893773,
     "standardization": "z_score",
     "fit_on": "pde_training_points"
   },
   "derivative_summary": {
-    "num_points": 20480,
-    "ut_mean": -0.038275448851798906,
-    "ut_std": 0.593780542432835
+    "num_points": 22140,
+    "ut_mean": -0.031061516773266643,
+    "ut_std": 0.5248435254893773
   },
   "training_log": {
-    "dense": [
-      {
-        "epoch": 1,
-        "loss": 58761.54408662576,
-        "fit_loss": 58761.544045704766,
-        "ridge_loss": 4.0920997410572464e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.0920997410572464e-05,
-        "validation_residual": 781.7820876806943,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.03805900093192217,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.09108156165332457,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.24446207393910266,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.134260467032403,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.02185157080714975,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.07704973925271433,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11772785835938035,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": 0.0833758925185566,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.4686961096374227,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.08918885046408999,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.099389325662333,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.011869221794245226,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.1766951387701962,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.3082451525797071,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.5228025658624121,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.4009797537950282,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 100,
-        "loss": 4211.328112434512,
-        "fit_loss": 4211.328071639675,
-        "ridge_loss": 4.0794837395359254e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.0794837395359254e-05,
-        "validation_residual": 19.272148641860827,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": -0.00027675792216387557,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.19614701151560252,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2107357227128718,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2607399936059222,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.12819437077827886,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.17261323785907584,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2366815610707943,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": 0.0035298585846874177,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.37022604153246186,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.03083976558731476,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2150887027188639,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.10825964641610221,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.32660724825526527,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.22935106795510268,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.3278494560528793,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2506485879261985,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 200,
-        "loss": 31.24063664832635,
-        "fit_loss": 31.240595649148357,
-        "ridge_loss": 4.099917799484853e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.099917799484853e-05,
-        "validation_residual": 36.69428865894362,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.03688125459458093,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2361206501296201,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.23620909424312633,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.31602868107410825,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.16602165537579955,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21340342416013974,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.28594475803866537,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.016267244484145415,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3544844824534929,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.025871698819141156,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.27719502217371406,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.1215246402518382,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.4539513690750353,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21458454764558257,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.29859645781548527,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.22191304286647434,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 300,
-        "loss": 20.232101497021635,
-        "fit_loss": 20.23206049564385,
-        "ridge_loss": 4.100137778626381e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.100137778626381e-05,
-        "validation_residual": 20.92692831191925,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.06262250530025233,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.23160507396225966,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2630418752314949,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.30565029597634874,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.16572010136812887,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21506098476447866,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.27745946607427696,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.013573938320587661,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.35265304128104336,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.027789836393822726,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2772535799762217,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11870522226311168,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.4446985031980177,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21405532875144598,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.30117904824693553,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.22134527891242844,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 400,
-        "loss": 15.26844962482257,
-        "fit_loss": 15.268408610665574,
-        "ridge_loss": 4.1014156994997905e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.1014156994997905e-05,
-        "validation_residual": 13.917853711295681,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.10218504038648625,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2258766431537465,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2972494995762312,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2932821093914532,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.16426138373226662,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2140139032953037,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2736226714803637,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.009931069677864172,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3512184669914402,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.029165338079621614,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2788392956413083,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11614095577522258,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.430397931099353,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21371448021482387,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.3033420472322405,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2209479151113444,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 500,
-        "loss": 11.992473008752647,
-        "fit_loss": 11.992431972584004,
-        "ridge_loss": 4.103616864335838e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.103616864335838e-05,
-        "validation_residual": 9.403544003873876,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.15487221632502146,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.22090603132483946,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3312393325069969,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.28228642886382577,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.1619892974765474,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21294542187039478,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.27136109798643143,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.006684156483499321,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3497928124016113,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.03049989801124137,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.28059158300387815,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11409110074483533,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.41847163353205213,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21350020098110453,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.3050390704676045,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.22061608828384097,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 600,
-        "loss": 9.991136011328454,
-        "fit_loss": 9.991094948468513,
-        "ridge_loss": 4.106285994051941e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.106285994051941e-05,
-        "validation_residual": 6.714291922487016,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.21543008002455782,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21733909404196167,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.36029169012531237,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2736910688038834,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.15900270151944312,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21263613686450328,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2693068452757183,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.004344897665147539,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.34826121434118623,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.031947178359262245,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2819025697397574,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11258978835066823,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.41039941697412186,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21341491116551203,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.30621499962648197,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.22034669239166843,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 700,
-        "loss": 8.880406027308286,
-        "fit_loss": 8.880364937262954,
-        "ridge_loss": 4.109004533242017e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.109004533242017e-05,
-        "validation_residual": 5.3411963114275895,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2734080671469745,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2150941153958242,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.38300369837070525,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2673744569786976,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.15540076595752092,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21292309126765177,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.26717934956239653,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.0029228317045002323,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3466323419876734,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.033491675835026005,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2827338534856424,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11154156487740628,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.4054668978929712,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21345540587532558,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.3068590800852785,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2201390278360389,
-            "active": true
-          }
-        ]
-      },
-      {
-        "epoch": 800,
-        "loss": 8.19342884972039,
-        "fit_loss": 8.193387733959499,
-        "ridge_loss": 4.111576089248532e-05,
-        "sparsity_loss": 0.0,
-        "regularization_loss": 4.111576089248532e-05,
-        "validation_residual": 4.670811514056538,
-        "active_components": 16,
-        "effective_rank_by_order": {
-          "2": 8,
-          "3": 8
-        },
-        "mean_gate": 0.9820137900379085,
-        "max_gate": 0.9820137900379085,
-        "min_gate": 0.9820137900379085,
-        "components": [
-          {
-            "order": 2,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3213832212997227,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21368551176555803,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.40155040837415096,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.26263267659135586,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": -0.15134746291292278,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21328658983370025,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.26525281945132884,
-            "active": true
-          },
-          {
-            "order": 2,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.0021166239355914357,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 0,
-            "gate": 0.9820137900379085,
-            "alpha": 0.3449561721808839,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 1,
-            "gate": 0.9820137900379085,
-            "alpha": 0.03508579081429018,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 2,
-            "gate": 0.9820137900379085,
-            "alpha": 0.2833149676827272,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 3,
-            "gate": 0.9820137900379085,
-            "alpha": -0.11081754971323445,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 4,
-            "gate": 0.9820137900379085,
-            "alpha": 0.40228347364566364,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 5,
-            "gate": 0.9820137900379085,
-            "alpha": -0.21359686214239293,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 6,
-            "gate": 0.9820137900379085,
-            "alpha": -0.30708291134588933,
-            "active": true
-          },
-          {
-            "order": 3,
-            "component": 7,
-            "gate": 0.9820137900379085,
-            "alpha": -0.2199811338825094,
-            "active": true
-          }
-        ]
-      }
-    ],
+    "dense": [],
     "sparse": [
       {
         "epoch": 1,
-        "loss": 8.188034387563498,
-        "fit_loss": 8.187495934558802,
+        "loss": 82.40815624682381,
+        "fit_loss": 82.40787475690581,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.0005384530046948402,
-        "regularization_loss": 0.0005384530046948402,
-        "validation_residual": 4.428549244318312,
+        "sparsity_loss": 0.0002814899179919854,
+        "regularization_loss": 0.0002814899179919854,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4999375000938682,
-        "max_gate": 0.5002499999750682,
-        "min_gate": 0.49975000002132597,
+        "mean_gate": 0.4999999999976608,
+        "max_gate": 0.500249999978451,
+        "min_gate": 0.49975000002086706,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.5002499999628061,
-            "alpha": 0.6453927148248441,
+            "gate": 0.5002499999643186,
+            "alpha": -0.10078394313920055,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4997500000254643,
-            "alpha": -0.42555678718052997,
+            "gate": 0.49975000002198205,
+            "alpha": -0.5628772173150737,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.5002499999634723,
-            "alpha": 0.8040709901800477,
+            "gate": 0.49975000002656456,
+            "alpha": -0.15198037521579755,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.49975000002717135,
-            "alpha": -0.523079097743001,
+            "gate": 0.500249999964398,
+            "alpha": -0.39193812914968484,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.4997500000247884,
-            "alpha": -0.3005307216342027,
+            "gate": 0.5002499999747879,
+            "alpha": 0.3723231339624205,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.49975000002628917,
-            "alpha": -0.4251835498899008,
+            "gate": 0.5002499999698305,
+            "alpha": 0.3422149921736622,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.49975000003522163,
-            "alpha": -0.5286065034759265,
+            "gate": 0.5002499999747874,
+            "alpha": -0.3494308496382859,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.49975000132260256,
-            "alpha": -0.003228968268450126,
+            "gate": 0.5002499999681934,
+            "alpha": 0.7419076922197821,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.49975000002132597,
-            "alpha": 0.6852109442220021,
+            "gate": 0.5002499999782678,
+            "alpha": -0.9860466121671133,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5002499999675322,
-            "alpha": 0.07144064972231784,
+            "gate": 0.4997500000284738,
+            "alpha": -0.05448847671038107,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49975000016022186,
-            "alpha": 0.5645877325030952,
+            "gate": 0.49975000002118447,
+            "alpha": -0.39166929960436747,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.5002499999705895,
-            "alpha": -0.2227715255268512,
+            "gate": 0.500249999978451,
+            "alpha": -0.28394415554207714,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.5002499999637928,
-            "alpha": 0.8057636228676042,
+            "gate": 0.49975000002086706,
+            "alpha": 4.186742122959568,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4997500000333565,
-            "alpha": -0.4269957053525755,
+            "gate": 0.49975000002350517,
+            "alpha": 1.413774514575307,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.5002499999750682,
-            "alpha": -0.6158346456327551,
+            "gate": 0.49975000002215525,
+            "alpha": -0.43534985580486746,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4997500000221889,
-            "alpha": -0.4383621544984503,
+            "gate": 0.4997500000248055,
+            "alpha": -0.1086048092405435,
             "active": true
           }
         ]
       },
       {
         "epoch": 100,
-        "loss": 1.9146640581876526,
-        "fit_loss": 1.861108310642801,
+        "loss": 5.455904176122906,
+        "fit_loss": 5.42751547530534,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.053555747544851644,
-        "regularization_loss": 0.053555747544851644,
-        "validation_residual": 1.4786345262073457,
+        "sparsity_loss": 0.02838870081756609,
+        "regularization_loss": 0.02838870081756609,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4973305594937943,
-        "max_gate": 0.523945351214061,
-        "min_gate": 0.48515455452283124,
+        "mean_gate": 0.5028543566007225,
+        "max_gate": 0.522467844975622,
+        "min_gate": 0.4841995198107424,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.5026224456032942,
-            "alpha": 0.6994932410933936,
+            "gate": 0.5145879312111422,
+            "alpha": -0.16898894387697613,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4914930076051422,
-            "alpha": -0.3669383865732379,
+            "gate": 0.4945164510141369,
+            "alpha": -0.5150228498366011,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.49011806340316266,
-            "alpha": 0.7069701697976125,
+            "gate": 0.4883805532360715,
+            "alpha": -0.09892988540292105,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.49157362047694664,
-            "alpha": -0.4420959318602429,
+            "gate": 0.5135629547937058,
+            "alpha": -0.43458318400424045,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.48515455452283124,
-            "alpha": -0.1775607602790152,
+            "gate": 0.5019537214370408,
+            "alpha": 0.3710934276470241,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.4905484763194036,
-            "alpha": -0.39417488117137145,
+            "gate": 0.522467844975622,
+            "alpha": 0.47577652101024875,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.49057675558752534,
-            "alpha": -0.4809906888655635,
+            "gate": 0.5114564430857965,
+            "alpha": -0.37211333912946537,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5091100601053307,
-            "alpha": 0.0322139945167484,
+            "gate": 0.496680256475649,
+            "alpha": 0.69374531117393,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.48702674316831585,
-            "alpha": 0.49268675264403927,
+            "gate": 0.5093005806259613,
+            "alpha": -1.1118484605268146,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.523945351214061,
-            "alpha": 0.19241326561180477,
+            "gate": 0.4907335297951048,
+            "alpha": 0.0029935872159416693,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.5000150322580198,
-            "alpha": 0.5858292282726284,
+            "gate": 0.48638317136374215,
+            "alpha": -0.3247879401988047,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49931982222966054,
-            "alpha": -0.21082104945574126,
+            "gate": 0.5209352896267466,
+            "alpha": -0.49590286734420475,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.500291337629442,
-            "alpha": 0.7889512491501692,
+            "gate": 0.4841995198107424,
+            "alpha": 2.9364749249957347,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.49767029292676684,
-            "alpha": -0.468290371227319,
+            "gate": 0.520919631064126,
+            "alpha": 1.7281681913495632,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4985929124656419,
-            "alpha": -0.5833600936314578,
+            "gate": 0.5014888200092728,
+            "alpha": -0.46645655179396317,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.49923047638516427,
-            "alpha": -0.4271944213568367,
+            "gate": 0.4881030070866994,
+            "alpha": -0.04343308512820279,
             "active": true
           }
         ]
       },
       {
         "epoch": 200,
-        "loss": 0.711764676436653,
-        "fit_loss": 0.6045812463146751,
+        "loss": 1.3985312431316044,
+        "fit_loss": 1.341568712757656,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.10718343012197785,
-        "regularization_loss": 0.10718343012197785,
-        "validation_residual": 0.614969371270343,
+        "sparsity_loss": 0.05696253037394832,
+        "regularization_loss": 0.05696253037394832,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4976946676026572,
-        "max_gate": 0.5562911129880523,
-        "min_gate": 0.4701506034961611,
+        "mean_gate": 0.5037812554555252,
+        "max_gate": 0.5357820916498407,
+        "min_gate": 0.47974619046228434,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4959158822232606,
-            "alpha": 0.6114094105086368,
+            "gate": 0.5169927501501315,
+            "alpha": -0.1861820963738095,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.48605135772386127,
-            "alpha": -0.32798921939643466,
+            "gate": 0.5033277585449987,
+            "alpha": -0.6048264689283975,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.4701506034961611,
-            "alpha": 0.5336269113246146,
+            "gate": 0.49250472596578565,
+            "alpha": -0.12990353263099652,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.48959706791701924,
-            "alpha": -0.44011853385716176,
+            "gate": 0.5109354428997015,
+            "alpha": -0.43618370298110215,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.48082604550243413,
-            "alpha": -0.1418679333635066,
+            "gate": 0.488987565449218,
+            "alpha": 0.2912277085909028,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.48604695530368575,
-            "alpha": -0.37430146499425,
+            "gate": 0.5357820916498407,
+            "alpha": 0.5703982130672618,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.48409947996917624,
-            "alpha": -0.4574354864049559,
+            "gate": 0.5052420907557302,
+            "alpha": -0.3396294039422326,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5562911129880523,
-            "alpha": 0.13038129619321204,
+            "gate": 0.47974619046228434,
+            "alpha": 0.5769329646885265,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.48244060020186386,
-            "alpha": 0.43098326282464844,
+            "gate": 0.5094451967097454,
+            "alpha": -1.1234981103561803,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5386754715846838,
-            "alpha": 0.26328655788156824,
+            "gate": 0.49033735667552375,
+            "alpha": 0.009389052425097882,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49964091352352824,
-            "alpha": 0.5900829317851469,
+            "gate": 0.4850833454988488,
+            "alpha": -0.30580749072566277,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.4993207304755198,
-            "alpha": -0.2102011815847231,
+            "gate": 0.5270839518407079,
+            "alpha": -0.5688536052727085,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.49970321122407774,
-            "alpha": 0.7764937004736396,
+            "gate": 0.4806662029011837,
+            "alpha": 2.6444416054908166,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4970393621349534,
-            "alpha": -0.48456731430407196,
+            "gate": 0.5321251497255461,
+            "alpha": 2.018889628680852,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4980772869042458,
-            "alpha": -0.5545402034390763,
+            "gate": 0.5150106320779196,
+            "alpha": -0.62956037165654,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4992386004699923,
-            "alpha": -0.4245672764098307,
+            "gate": 0.487229635981238,
+            "alpha": -0.038273278732188734,
             "active": true
           }
         ]
       },
       {
         "epoch": 300,
-        "loss": 0.45260205955722155,
-        "fit_loss": 0.29199317078929177,
+        "loss": 0.891969335449606,
+        "fit_loss": 0.8067970197069577,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.16060888876792978,
-        "regularization_loss": 0.16060888876792978,
-        "validation_residual": 0.30108395489918477,
+        "sparsity_loss": 0.08517231574264832,
+        "regularization_loss": 0.08517231574264832,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.49716675559960083,
-        "max_gate": 0.5805292580830728,
-        "min_gate": 0.45752315388304,
+        "mean_gate": 0.50253778646932,
+        "max_gate": 0.5392692299695848,
+        "min_gate": 0.45765863264338447,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.48539210259613363,
-            "alpha": 0.5140117575762991,
+            "gate": 0.5223688217051551,
+            "alpha": -0.21783254377756878,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4832864378699049,
-            "alpha": -0.3122003848673045,
+            "gate": 0.5067425284532137,
+            "alpha": -0.6479248388364443,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.45752315388304,
-            "alpha": 0.4339275272801177,
+            "gate": 0.4955261458700215,
+            "alpha": -0.15368667892955534,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.48830619541137166,
-            "alpha": -0.4519372240850584,
+            "gate": 0.5074638519527831,
+            "alpha": -0.44086533952089557,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.4808604687871965,
-            "alpha": -0.1477064035568576,
+            "gate": 0.48427032110022245,
+            "alpha": 0.264189634284082,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.48283771832450983,
-            "alpha": -0.3440482559907719,
+            "gate": 0.5392692299695848,
+            "alpha": 0.6169997514501172,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.47793172457855326,
-            "alpha": -0.4203173149470201,
+            "gate": 0.5020027088575737,
+            "alpha": -0.3240633067842111,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5805292580830728,
-            "alpha": 0.2053545131926279,
+            "gate": 0.45765863264338447,
+            "alpha": 0.4380191357419168,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4814170235078644,
-            "alpha": 0.4131375155894374,
+            "gate": 0.509296037458348,
+            "alpha": -1.11887838655692,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5446047635121456,
-            "alpha": 0.3056426940992017,
+            "gate": 0.4893717796555831,
+            "alpha": 0.01386689157920997,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.4991954736246861,
-            "alpha": 0.5805778988717756,
+            "gate": 0.4847370615530445,
+            "alpha": -0.29531427890204737,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49936728926816165,
-            "alpha": -0.21112680508932205,
+            "gate": 0.5283906720807955,
+            "alpha": -0.5875118532507494,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.49890309013097683,
-            "alpha": 0.7602710255334716,
+            "gate": 0.4796160590336484,
+            "alpha": 2.5571611420642806,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4972344292000932,
-            "alpha": -0.49428568451391036,
+            "gate": 0.5300623157199105,
+            "alpha": 1.9921676914797393,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4978551446726308,
-            "alpha": -0.5252570171192895,
+            "gate": 0.5166271008556419,
+            "alpha": -0.6524664031250038,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4994238161432723,
-            "alpha": -0.42484951348655065,
+            "gate": 0.48720131660021043,
+            "alpha": -0.043868668982812484,
             "active": true
           }
         ]
       },
       {
         "epoch": 400,
-        "loss": 0.3721178384115589,
-        "fit_loss": 0.15840395005760338,
+        "loss": 0.660573644332533,
+        "fit_loss": 0.5474160504774646,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.2137138883539555,
-        "regularization_loss": 0.2137138883539555,
-        "validation_residual": 0.16434365944172583,
+        "sparsity_loss": 0.11315759385506843,
+        "regularization_loss": 0.11315759385506843,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.49612940773039943,
-        "max_gate": 0.5887655694168088,
-        "min_gate": 0.4499001970395082,
+        "mean_gate": 0.5011946545242454,
+        "max_gate": 0.5394939643701672,
+        "min_gate": 0.44403853093582235,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4760821016711835,
-            "alpha": 0.44627660660692536,
+            "gate": 0.5255170796007543,
+            "alpha": -0.24370967296137772,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.48163109220643713,
-            "alpha": -0.3073838096087081,
+            "gate": 0.507364203466695,
+            "alpha": -0.6632840706487816,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.4499001970395082,
-            "alpha": 0.38039674500417253,
+            "gate": 0.496837985036671,
+            "alpha": -0.1702884842170075,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.4870824282079193,
-            "alpha": -0.4671382533356012,
+            "gate": 0.5023905628231362,
+            "alpha": -0.4417564852415202,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.481224007526718,
-            "alpha": -0.15872506295833397,
+            "gate": 0.4823266997199431,
+            "alpha": 0.25752237320538385,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.48024747781271526,
-            "alpha": -0.3198829503307775,
+            "gate": 0.5394939643701672,
+            "alpha": 0.6417182939155543,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4734702286570426,
-            "alpha": -0.39822295023387266,
+            "gate": 0.5016588544884031,
+            "alpha": -0.3285086456282489,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5887655694168088,
-            "alpha": 0.27019868295186883,
+            "gate": 0.44403853093582235,
+            "alpha": 0.3517638291806952,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.48105514162614565,
-            "alpha": 0.4047923129502833,
+            "gate": 0.5081637782529302,
+            "alpha": -1.09999088930295,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5478375349186767,
-            "alpha": 0.3484835736154089,
+            "gate": 0.4876698732880528,
+            "alpha": 0.018762674930951233,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.4988223649733399,
-            "alpha": 0.5694036935893628,
+            "gate": 0.4841815775199299,
+            "alpha": -0.2852263078103898,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49933470119220535,
-            "alpha": -0.2116480532709585,
+            "gate": 0.528866594119999,
+            "alpha": -0.5932911304216744,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4984346569089067,
-            "alpha": 0.7516187961422232,
+            "gate": 0.47895927390476745,
+            "alpha": 2.503601858696816,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4970598720199272,
-            "alpha": -0.4972735471245214,
+            "gate": 0.5275520344134558,
+            "alpha": 1.9459265843136941,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.49758678155377933,
-            "alpha": -0.5016755046682285,
+            "gate": 0.5166558267600085,
+            "alpha": -0.6606252399788944,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4995363679550769,
-            "alpha": -0.4256101992982124,
+            "gate": 0.4874376336871903,
+            "alpha": -0.054404849501100805,
             "active": true
           }
         ]
       },
       {
         "epoch": 500,
-        "loss": 0.3623082117313319,
-        "fit_loss": 0.09604074654597344,
+        "loss": 0.534323381003635,
+        "fit_loss": 0.3934590888900038,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.26626746518535843,
-        "regularization_loss": 0.26626746518535843,
-        "validation_residual": 0.1003282407141019,
+        "sparsity_loss": 0.14086429211363122,
+        "regularization_loss": 0.14086429211363122,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4944677063432412,
-        "max_gate": 0.5843355117870269,
-        "min_gate": 0.44463278589715477,
+        "mean_gate": 0.4996636183423373,
+        "max_gate": 0.5387990838839195,
+        "min_gate": 0.4346934935408514,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4681931353621519,
-            "alpha": 0.4111842007427698,
+            "gate": 0.5270597075494622,
+            "alpha": -0.269758896761318,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4803300180916574,
-            "alpha": -0.3073170489946453,
+            "gate": 0.5074156619909921,
+            "alpha": -0.6725402312888421,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.44463278589715477,
-            "alpha": 0.3529390075397446,
+            "gate": 0.4962896563547128,
+            "alpha": -0.180054422415465,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.48546498947302846,
-            "alpha": -0.4795405246144466,
+            "gate": 0.4957265807620211,
+            "alpha": -0.4380834272077388,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.48108651139892816,
-            "alpha": -0.16776899274227544,
+            "gate": 0.4806146286811098,
+            "alpha": 0.25526356632691666,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.47791410023860764,
-            "alpha": -0.3039114448269075,
+            "gate": 0.5387990838839195,
+            "alpha": 0.6596004864240368,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4698519692523421,
-            "alpha": -0.3842481293394865,
+            "gate": 0.5013327677452067,
+            "alpha": -0.33520771621313666,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5843355117870269,
-            "alpha": 0.3351776247055095,
+            "gate": 0.4346934935408514,
+            "alpha": 0.2939146947970004,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4808212937337669,
-            "alpha": 0.4006901473834506,
+            "gate": 0.5069737928903092,
+            "alpha": -1.0832518466925853,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5495019717811763,
-            "alpha": 0.38758722744656365,
+            "gate": 0.4849528707814516,
+            "alpha": 0.02304679392053121,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49851501269098103,
-            "alpha": 0.5594628884541741,
+            "gate": 0.48368292890341297,
+            "alpha": -0.2777798107377002,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.4992220989836741,
-            "alpha": -0.2117443057909524,
+            "gate": 0.5290968150982741,
+            "alpha": -0.5965521764044677,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4981719526542708,
-            "alpha": 0.7481446814851892,
+            "gate": 0.4784181145635599,
+            "alpha": 2.458868915966896,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.49654761879744524,
-            "alpha": -0.49575627721558574,
+            "gate": 0.5254696115234806,
+            "alpha": 1.9106390451278095,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4973108677495197,
-            "alpha": -0.4864858465308837,
+            "gate": 0.5163502490688373,
+            "alpha": -0.6691029090973858,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4995834636001273,
-            "alpha": -0.4265693411434377,
+            "gate": 0.4877419301397953,
+            "alpha": -0.06752937575461598,
             "active": true
           }
         ]
       },
       {
         "epoch": 600,
-        "loss": 0.38433916792129347,
-        "fit_loss": 0.06650453564891046,
+        "loss": 0.46396315330568594,
+        "fit_loss": 0.2957785664530847,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.317834632272383,
-        "regularization_loss": 0.317834632272383,
-        "validation_residual": 0.06969280728164888,
+        "sparsity_loss": 0.16818458685260126,
+        "regularization_loss": 0.16818458685260126,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.49181311776856373,
-        "max_gate": 0.5669879002662008,
-        "min_gate": 0.44007405296100555,
+        "mean_gate": 0.4978115790782797,
+        "max_gate": 0.5375471956026889,
+        "min_gate": 0.42761559846241914,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4603767451496892,
-            "alpha": 0.396427299603683,
+            "gate": 0.5274262295545147,
+            "alpha": -0.2996594280790453,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.47893214318417593,
-            "alpha": -0.3088101198195835,
+            "gate": 0.5073362749596834,
+            "alpha": -0.6805403947476634,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.44007405296100555,
-            "alpha": 0.3392386323056819,
+            "gate": 0.4937252256381645,
+            "alpha": -0.18263611227046353,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.48299301830338487,
-            "alpha": -0.48638608404430406,
+            "gate": 0.48787902270950156,
+            "alpha": -0.4327577968387549,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.48035333774377953,
-            "alpha": -0.17451069536731068,
+            "gate": 0.4784895901046203,
+            "alpha": 0.2535546595281006,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.4755030332195887,
-            "alpha": -0.29392995934476684,
+            "gate": 0.5375471956026889,
+            "alpha": 0.6745301395513524,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4662091369032712,
-            "alpha": -0.37279480678628607,
+            "gate": 0.5003388615011859,
+            "alpha": -0.3402506699941026,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5669879002662008,
-            "alpha": 0.3907356122093184,
+            "gate": 0.42761559846241914,
+            "alpha": 0.2549534538742571,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.48059195339961575,
-            "alpha": 0.3991294487860026,
+            "gate": 0.5057318554674658,
+            "alpha": -1.0685605595165903,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5493384243697548,
-            "alpha": 0.41407737474823686,
+            "gate": 0.48104971345462116,
+            "alpha": 0.026944114461552822,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49826602069016424,
-            "alpha": 0.5517847184402253,
+            "gate": 0.4832309176641549,
+            "alpha": -0.27252010680468025,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.4990401210717475,
-            "alpha": -0.2115856672303272,
+            "gate": 0.5291727491931979,
+            "alpha": -0.5989434157062358,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4979896128559722,
-            "alpha": 0.7467037154365048,
+            "gate": 0.47794776468812783,
+            "alpha": 2.419759366017131,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.49575625575839266,
-            "alpha": -0.4906840253973198,
+            "gate": 0.523688606042462,
+            "alpha": 1.882213532793025,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4970149079545437,
-            "alpha": -0.47733978838644453,
+            "gate": 0.5157946120082034,
+            "alpha": -0.6773381723551158,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.49958322046573383,
-            "alpha": -0.42741298938319955,
+            "gate": 0.48801104820146324,
+            "alpha": -0.08260953306446232,
             "active": true
           }
         ]
       },
       {
         "epoch": 700,
-        "loss": 0.4189653390039264,
-        "fit_loss": 0.05089831826832725,
+        "loss": 0.4240011204490881,
+        "fit_loss": 0.2290313224761674,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.36806702073559916,
-        "regularization_loss": 0.36806702073559916,
-        "validation_residual": 0.05335376463991337,
+        "sparsity_loss": 0.19496979797292072,
+        "regularization_loss": 0.19496979797292072,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4881280276497927,
-        "max_gate": 0.5475457593373645,
-        "min_gate": 0.43515234720624396,
+        "mean_gate": 0.4955000198363701,
+        "max_gate": 0.535667316863734,
+        "min_gate": 0.421593446557232,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4514806898285823,
-            "alpha": 0.3906644337972137,
+            "gate": 0.5264256420114767,
+            "alpha": -0.33339628278137334,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.47720993468250705,
-            "alpha": -0.3105114352986856,
+            "gate": 0.5071633927286723,
+            "alpha": -0.6882841167116713,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.43515234720624396,
-            "alpha": 0.33091583600811864,
+            "gate": 0.4893611685742043,
+            "alpha": -0.1794579438445612,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.47951791718788295,
-            "alpha": -0.48925012481136165,
+            "gate": 0.4788550885198951,
+            "alpha": -0.42703671018335054,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.4790495159416067,
-            "alpha": -0.17957449977055842,
+            "gate": 0.47570741703247865,
+            "alpha": 0.2512207595135316,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.4727588243994781,
-            "alpha": -0.28737752073611705,
+            "gate": 0.535667316863734,
+            "alpha": 0.687500691582468,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4620942497428299,
-            "alpha": -0.36276968702132045,
+            "gate": 0.4984867977832351,
+            "alpha": -0.34326283332481006,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5393293635702849,
-            "alpha": 0.43373830145869763,
+            "gate": 0.421593446557232,
+            "alpha": 0.22941416144550358,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4803290665388344,
-            "alpha": 0.3990269976501468,
+            "gate": 0.5043425822063232,
+            "alpha": -1.054388496101363,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5475457593373645,
-            "alpha": 0.42847683972301126,
+            "gate": 0.475821619234677,
+            "alpha": 0.030595688079062856,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.4980501384523816,
-            "alpha": 0.5460826618290375,
+            "gate": 0.4827828160407414,
+            "alpha": -0.2686528679737628,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.4987954510254619,
-            "alpha": -0.2113070698987709,
+            "gate": 0.5291016352160507,
+            "alpha": -0.6005628587281993,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.49781640273283584,
-            "alpha": 0.7456395942769922,
+            "gate": 0.47753532378532265,
+            "alpha": 2.3856202735565017,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.49468974039759556,
-            "alpha": -0.48387763448071236,
+            "gate": 0.5220420138472841,
+            "alpha": 1.8561789518041776,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4966812629429405,
-            "alpha": -0.4715435222050643,
+            "gate": 0.5150267702865338,
+            "alpha": -0.6851929950398451,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4995477784098528,
-            "alpha": -0.42804152926661554,
+            "gate": 0.4880872866940608,
+            "alpha": -0.09921830362808841,
             "active": true
           }
         ]
       },
       {
         "epoch": 800,
-        "loss": 0.45939137021435644,
-        "fit_loss": 0.04162802112572879,
+        "loss": 0.40140694976840074,
+        "fit_loss": 0.18035641200427394,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.41776334908862767,
-        "regularization_loss": 0.41776334908862767,
-        "validation_residual": 0.043445012081935436,
+        "sparsity_loss": 0.22105053776412678,
+        "regularization_loss": 0.22105053776412678,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.484752966928504,
-        "max_gate": 0.5452046682987125,
-        "min_gate": 0.4294702820912685,
+        "mean_gate": 0.4926174883152918,
+        "max_gate": 0.5330530129053532,
+        "min_gate": 0.41583809917890086,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.44102649243490827,
-            "alpha": 0.389071094787109,
+            "gate": 0.5236209091315136,
+            "alpha": -0.36956281894019855,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4750388662977466,
-            "alpha": -0.31179135225092786,
+            "gate": 0.5068627908240098,
+            "alpha": -0.6961282189140372,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.4294702820912685,
-            "alpha": 0.32533216935149745,
+            "gate": 0.4835912656011199,
+            "alpha": -0.17289250016301336,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.4749847255381045,
-            "alpha": -0.4898217605760735,
+            "gate": 0.46855759328852203,
+            "alpha": -0.42150767531864397,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.4771953903124101,
-            "alpha": -0.18356558190744493,
+            "gate": 0.47214569568382436,
+            "alpha": 0.2478936532776404,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.4694979519912922,
-            "alpha": -0.28231483282910824,
+            "gate": 0.5330530129053532,
+            "alpha": 0.6991664671602315,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4573608772220315,
-            "alpha": -0.35447971039135945,
+            "gate": 0.49568932336493937,
+            "alpha": -0.3445920413129832,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5231469688211964,
-            "alpha": 0.45801870571456077,
+            "gate": 0.41583809917890086,
+            "alpha": 0.2132514028730975,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4800075670915551,
-            "alpha": 0.3995733796855544,
+            "gate": 0.5027622623823812,
+            "alpha": -1.0401804653206865,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5452046682987125,
-            "alpha": 0.43521509301668565,
+            "gate": 0.46914255346409406,
+            "alpha": 0.0339792383852418,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49784747131595575,
-            "alpha": 0.5418096263111052,
+            "gate": 0.48230556077509784,
+            "alpha": -0.2655943408501147,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49851252070582347,
-            "alpha": -0.21109055642880767,
+            "gate": 0.5288870743091298,
+            "alpha": -0.601448458587386,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4976111906991951,
-            "alpha": 0.7440501232891964,
+            "gate": 0.4771727858288093,
+            "alpha": 2.355940722837078,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.49335525216250786,
-            "alpha": -0.4765774841687385,
+            "gate": 0.5204227662214744,
+            "alpha": 1.8306460256699304,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4963092739554968,
-            "alpha": -0.46736998727976337,
+            "gate": 0.5140705617245037,
+            "alpha": -0.6929473295195043,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4994779719178594,
-            "alpha": -0.4284309230555324,
+            "gate": 0.4877575583609953,
+            "alpha": -0.11698312257494557,
             "active": true
           }
         ]
       },
       {
         "epoch": 900,
-        "loss": 0.5020879728622867,
-        "fit_loss": 0.03558507774068915,
+        "loss": 0.38982929803772143,
+        "fit_loss": 0.14358842184710902,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.4665028951215975,
-        "regularization_loss": 0.4665028951215975,
-        "validation_residual": 0.036852117644508124,
+        "sparsity_loss": 0.2462408761906124,
+        "regularization_loss": 0.2462408761906124,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4811187769176942,
-        "max_gate": 0.5424060020107416,
-        "min_gate": 0.42282619037447017,
+        "mean_gate": 0.4890702252451098,
+        "max_gate": 0.5295768578639252,
+        "min_gate": 0.4098386464573738,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4287591613495938,
-            "alpha": 0.3899941182055217,
+            "gate": 0.5184646508489225,
+            "alpha": -0.406015638807676,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.472391826881357,
-            "alpha": -0.31282153025968606,
+            "gate": 0.5063647714371234,
+            "alpha": -0.7040401534834514,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.42282619037447017,
-            "alpha": 0.32159082837026387,
+            "gate": 0.4767534497461487,
+            "alpha": -0.16506885665339702,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.46942414384880154,
-            "alpha": -0.4893015935630356,
+            "gate": 0.4569116557363039,
+            "alpha": -0.4164390121312306,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.4747768266360243,
-            "alpha": -0.18700987010058043,
+            "gate": 0.46775350921204195,
+            "alpha": 0.24365050686852416,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.46563795420310083,
-            "alpha": -0.27820799918063555,
+            "gate": 0.5295768578639252,
+            "alpha": 0.7098882365221707,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.45187413878069965,
-            "alpha": -0.34748062465512,
+            "gate": 0.4918947818677128,
+            "alpha": -0.3446804127393559,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.5099619272053697,
-            "alpha": 0.4728154086290665,
+            "gate": 0.4098386464573738,
+            "alpha": 0.20334002633578804,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4796295941372379,
-            "alpha": 0.4005136883866816,
+            "gate": 0.5009874945690608,
+            "alpha": -1.026074980862306,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5424060020107416,
-            "alpha": 0.4393636463097104,
+            "gate": 0.46091911087978954,
+            "alpha": 0.037040964078025956,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.4976399289135276,
-            "alpha": 0.5383010323080842,
+            "gate": 0.4817789193645272,
+            "alpha": -0.2630237365978865,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49817838761763983,
-            "alpha": -0.21089056330758005,
+            "gate": 0.5285381822127821,
+            "alpha": -0.6017633165352965,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4973698531571878,
-            "alpha": 0.7420185689699359,
+            "gate": 0.4768538772371012,
+            "alpha": 2.330252154924227,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.49175041490611865,
-            "alpha": -0.46917263009086113,
+            "gate": 0.5187667095742718,
+            "alpha": 1.805258332547235,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4958848349443265,
-            "alpha": -0.4637402457783801,
+            "gate": 0.5129329122642335,
+            "alpha": -0.7009716820973301,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4993892457169107,
-            "alpha": -0.42881866876065533,
+            "gate": 0.48678807465043816,
+            "alpha": -0.1356021798528525,
             "active": true
           }
         ]
       },
       {
         "epoch": 1000,
-        "loss": 0.546053976683887,
-        "fit_loss": 0.0320581139304461,
+        "loss": 0.38588297985619663,
+        "fit_loss": 0.11553852881683109,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.5139958627534409,
-        "regularization_loss": 0.5139958627534409,
-        "validation_residual": 0.03230061455420148,
+        "sparsity_loss": 0.27034445103936555,
+        "regularization_loss": 0.27034445103936555,
+        "validation_residual": null,
         "active_components": 16,
         "effective_rank_by_order": {
           "2": 8,
           "3": 8
         },
-        "mean_gate": 0.4770478124984877,
-        "max_gate": 0.5393756362858805,
-        "min_gate": 0.4145786899538349,
+        "mean_gate": 0.48477915964761964,
+        "max_gate": 0.5280691087714848,
+        "min_gate": 0.40327512742766447,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.4145786899538349,
-            "alpha": 0.39217742553220125,
+            "gate": 0.5104140630051616,
+            "alpha": -0.4402128136729396,
             "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4692152797318593,
-            "alpha": -0.3134243386942005,
+            "gate": 0.5055802556583241,
+            "alpha": -0.7116780701792379,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.4151081183317125,
-            "alpha": 0.31934829510006046,
+            "gate": 0.4690370983268523,
+            "alpha": -0.15734346056056453,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.46286534982752536,
-            "alpha": -0.48842498936992884,
+            "gate": 0.44390455595977485,
+            "alpha": -0.41192574621834827,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.47172961072821046,
-            "alpha": -0.1898131674483405,
+            "gate": 0.4625235713819216,
+            "alpha": 0.2388126499580243,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.46111139196877354,
-            "alpha": -0.27470579407584755,
+            "gate": 0.5250809306721357,
+            "alpha": 0.7195623006413703,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4455419245082471,
-            "alpha": -0.34167731130123363,
+            "gate": 0.4870726994608048,
+            "alpha": -0.3439050636493086,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.4972263503976719,
-            "alpha": 0.4841371436099601,
+            "gate": 0.40327512742766447,
+            "alpha": 0.19742111714007593,
             "active": true
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4791703369824885,
-            "alpha": 0.4015439291026552,
+            "gate": 0.4990341996820352,
+            "alpha": -1.0125194721153905,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5393756362858805,
-            "alpha": 0.4416782347801787,
+            "gate": 0.45111294302171806,
+            "alpha": 0.03977403802812113,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49741372270383527,
-            "alpha": 0.535294013589602,
+            "gate": 0.4811935286023908,
+            "alpha": -0.2608279866470158,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49778976882922665,
-            "alpha": -0.21068889449504555,
+            "gate": 0.5280691087714848,
+            "alpha": -0.601801507982629,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.49708330114785226,
-            "alpha": 0.7395257087066839,
+            "gate": 0.47657224145376115,
+            "alpha": 2.308067610338412,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.48987312676704253,
-            "alpha": -0.4618754871628963,
+            "gate": 0.5170329581383323,
+            "alpha": 1.7803423413048745,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4954088006602143,
-            "alpha": -0.46045600746533405,
+            "gate": 0.51160398651824,
+            "alpha": -0.7095688448338663,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4992735911514283,
-            "alpha": -0.4291413250067973,
+            "gate": 0.48495928628131296,
+            "alpha": -0.1548532603529801,
             "active": true
           }
         ]
       },
       {
         "epoch": 1100,
-        "loss": 0.5888899924263145,
-        "fit_loss": 0.02859111249958576,
+        "loss": 0.38727000116628185,
+        "fit_loss": 0.09409197294725342,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.5602988799267287,
-        "regularization_loss": 0.5602988799267287,
-        "validation_residual": 0.029044148291932283,
+        "sparsity_loss": 0.29317802821902844,
+        "regularization_loss": 0.29317802821902844,
+        "validation_residual": null,
         "active_components": 15,
         "effective_rank_by_order": {
           "2": 7,
           "3": 8
         },
-        "mean_gate": 0.4726979907233608,
-        "max_gate": 0.5366595307734476,
-        "min_gate": 0.3986303499644231,
+        "mean_gate": 0.47969374719440755,
+        "max_gate": 0.5274940777121464,
+        "min_gate": 0.3959595447662961,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.3986303499644231,
-            "alpha": 0.39568989657278614,
-            "active": false
+            "gate": 0.49914631907557255,
+            "alpha": -0.47003470588472274,
+            "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.46550374704718817,
-            "alpha": -0.31378215028690565,
+            "gate": 0.5044231747211174,
+            "alpha": -0.7185961239467609,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.4063091341580023,
-            "alpha": 0.31910438429313875,
+            "gate": 0.4605018365320827,
+            "alpha": -0.1503453723650442,
             "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.45530052714577,
-            "alpha": -0.48737796359748664,
+            "gate": 0.42960301095173037,
+            "alpha": -0.40805062888384475,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.46803543658753066,
-            "alpha": -0.1922165447318526,
+            "gate": 0.4564687796658413,
+            "alpha": 0.2337838116190156,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.45588392776878106,
-            "alpha": -0.27168217078473594,
+            "gate": 0.5194052698204508,
+            "alpha": 0.7277499670862035,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.43834361712692943,
-            "alpha": -0.3373190185782142,
+            "gate": 0.48120970355138665,
+            "alpha": -0.3425604235305567,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.48674932368228585,
-            "alpha": 0.49208476914004595,
-            "active": true
+            "gate": 0.3959595447662961,
+            "alpha": 0.19402375032118127,
+            "active": false
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4786353459007773,
-            "alpha": 0.4026573926839212,
+            "gate": 0.49692138875464903,
+            "alpha": -0.9999983551115875,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5366595307734476,
-            "alpha": 0.44325250497413893,
+            "gate": 0.4397523753854542,
+            "alpha": 0.0422342487548145,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49718419501221417,
-            "alpha": 0.5327050876510686,
+            "gate": 0.48054629166497514,
+            "alpha": -0.25901056833978525,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.4973728057247222,
-            "alpha": -0.21056708269052882,
+            "gate": 0.5274940777121464,
+            "alpha": -0.6018910766134931,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.49677244765866607,
-            "alpha": 0.7368252199809582,
+            "gate": 0.4763207814717954,
+            "alpha": 2.288851518096993,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.48774009335228885,
-            "alpha": -0.4544678545083818,
+            "gate": 0.5151918926229967,
+            "alpha": 1.7564345125855527,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.49489854729438415,
-            "alpha": -0.45724805191442836,
+            "gate": 0.5100565143185826,
+            "alpha": -0.7188912733965621,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4991488223763616,
-            "alpha": -0.4295489195050649,
+            "gate": 0.4820989940954443,
+            "alpha": -0.17463848447397723,
             "active": true
           }
         ]
       },
       {
         "epoch": 1200,
-        "loss": 0.6318815747249867,
-        "fit_loss": 0.026888766169206837,
+        "loss": 0.39217796495932733,
+        "fit_loss": 0.07758226225425967,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.6049928085557799,
-        "regularization_loss": 0.6049928085557799,
-        "validation_residual": 0.02655911867557145,
-        "active_components": 14,
+        "sparsity_loss": 0.31459570270506765,
+        "regularization_loss": 0.31459570270506765,
+        "validation_residual": null,
+        "active_components": 15,
         "effective_rank_by_order": {
-          "2": 6,
+          "2": 7,
           "3": 8
         },
-        "mean_gate": 0.4678192025642989,
-        "max_gate": 0.5336418042639152,
-        "min_gate": 0.38105618456911344,
+        "mean_gate": 0.47380544501112365,
+        "max_gate": 0.5268214713148787,
+        "min_gate": 0.38779379856032886,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.38105618456911344,
-            "alpha": 0.4000342426678256,
-            "active": false
+            "gate": 0.4847267887835677,
+            "alpha": -0.4945664095411096,
+            "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4611871304394162,
-            "alpha": -0.3137322683003132,
+            "gate": 0.5028298023025826,
+            "alpha": -0.7244755622018079,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.3963430567096135,
-            "alpha": 0.3203351696135275,
-            "active": false
+            "gate": 0.4511373003023515,
+            "alpha": -0.14424101967193706,
+            "active": true
           },
           {
             "order": 2,
             "component": 3,
-            "gate": 0.4466818515690748,
-            "alpha": -0.48626907250825235,
+            "gate": 0.4141467427866111,
+            "alpha": -0.40493378200971347,
             "active": true
           },
           {
             "order": 2,
             "component": 4,
-            "gate": 0.4636380990937527,
-            "alpha": -0.19427558507931397,
+            "gate": 0.4496020342400619,
+            "alpha": 0.22890773922154525,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.44988402694115687,
-            "alpha": -0.26904195819648447,
+            "gate": 0.5124334123252878,
+            "alpha": 0.7340152062855536,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.43017580186270155,
-            "alpha": -0.33397777525337674,
+            "gate": 0.4743047789089446,
+            "alpha": -0.34086841205956364,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.4756541451291249,
-            "alpha": 0.4986935430498076,
-            "active": true
+            "gate": 0.38779379856032886,
+            "alpha": 0.19226864598240592,
+            "active": false
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.47799845035337557,
-            "alpha": 0.403709241347709,
+            "gate": 0.4946604280179137,
+            "alpha": -0.9888697782742054,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5336418042639152,
-            "alpha": 0.44409819197467504,
+            "gate": 0.4269294694512936,
+            "alpha": 0.04450793476057304,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49692893852902026,
-            "alpha": 0.5303330339800427,
+            "gate": 0.4798353279137075,
+            "alpha": -0.25760437126179375,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49689658752551025,
-            "alpha": -0.21044889562813407,
+            "gate": 0.5268214713148787,
+            "alpha": -0.6022686543590364,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4964168507391135,
-            "alpha": 0.7337557538638224,
+            "gate": 0.47609201624934866,
+            "alpha": 2.2720515359881217,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4852930203240158,
-            "alpha": -0.44702854986772417,
+            "gate": 0.5132197548095443,
+            "alpha": 1.734049287387418,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.49432177979003344,
-            "alpha": -0.4540422318503159,
+            "gate": 0.5082489759775508,
+            "alpha": -0.7289399677524414,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.49898951318984414,
-            "alpha": -0.4298564415200391,
+            "gate": 0.47810501823400475,
+            "alpha": -0.19504325327619487,
             "active": true
           }
         ]
       },
       {
         "epoch": 1300,
-        "loss": 0.6730542009954832,
-        "fit_loss": 0.02481261640246418,
+        "loss": 0.39920911013090243,
+        "fit_loss": 0.06470920715309184,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.6482415845930191,
-        "regularization_loss": 0.6482415845930191,
-        "validation_residual": 0.02484301198494555,
+        "sparsity_loss": 0.33449990297781057,
+        "regularization_loss": 0.33449990297781057,
+        "validation_residual": null,
         "active_components": 14,
         "effective_rank_by_order": {
           "2": 6,
           "3": 8
         },
-        "mean_gate": 0.4626433339641107,
-        "max_gate": 0.5309766644615085,
-        "min_gate": 0.36222459596782164,
+        "mean_gate": 0.4671457553863193,
+        "max_gate": 0.5260508219764982,
+        "min_gate": 0.3787407697370727,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.36222459596782164,
-            "alpha": 0.40511235044164595,
-            "active": false
+            "gate": 0.4675775988879386,
+            "alpha": -0.5141086758074445,
+            "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4563316935361492,
-            "alpha": -0.3134172719485627,
+            "gate": 0.5007641396335609,
+            "alpha": -0.729234196509954,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.3852360833905111,
-            "alpha": 0.3232153557321711,
-            "active": false
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.437093928029412,
-            "alpha": -0.4851991299835502,
+            "gate": 0.4409176012872616,
+            "alpha": -0.13898608126616574,
             "active": true
           },
           {
             "order": 2,
+            "component": 3,
+            "gate": 0.3977272136255407,
+            "alpha": -0.4026963442610434,
+            "active": false
+          },
+          {
+            "order": 2,
             "component": 4,
-            "gate": 0.458547574335406,
-            "alpha": -0.1959527769509823,
+            "gate": 0.4419277072157488,
+            "alpha": 0.22439751934111063,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.44315826700359606,
-            "alpha": -0.26677335208556296,
+            "gate": 0.5041163931909842,
+            "alpha": 0.7381717457753946,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.4210678031189451,
-            "alpha": -0.33186449925242045,
+            "gate": 0.46636663745060114,
+            "alpha": -0.3389993430599161,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.466037265749624,
-            "alpha": 0.5035872886718321,
-            "active": true
+            "gate": 0.3787407697370727,
+            "alpha": 0.19163848234955227,
+            "active": false
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.47728244733352315,
-            "alpha": 0.40480614602578774,
+            "gate": 0.49224946056474467,
+            "alpha": -0.9792907633637543,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5309766644615085,
-            "alpha": 0.4446058485721501,
+            "gate": 0.41278774741197233,
+            "alpha": 0.04666492523341673,
             "active": true
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.4966638080112126,
-            "alpha": 0.5281121379418767,
+            "gate": 0.47905654345517645,
+            "alpha": -0.2566168892107904,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49639807400976776,
-            "alpha": -0.2103164766710029,
+            "gate": 0.5260508219764982,
+            "alpha": -0.6030181812227073,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4960418973610574,
-            "alpha": 0.7305871499089043,
+            "gate": 0.4758788583888428,
+            "alpha": 2.2571619294917,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4826298960661281,
-            "alpha": -0.43959275020922106,
+            "gate": 0.5110959472648383,
+            "alpha": 1.7135602142501811,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.49375693876511034,
-            "alpha": -0.45115266763185474,
+            "gate": 0.5061322869760192,
+            "alpha": -0.7396147465829547,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4988464062859996,
-            "alpha": -0.43041144916786866,
+            "gate": 0.4729423591143079,
+            "alpha": -0.21632594106569109,
             "active": true
           }
         ]
       },
       {
         "epoch": 1400,
-        "loss": 0.7130061919869156,
-        "fit_loss": 0.02349259065739277,
+        "loss": 0.40736081779553157,
+        "fit_loss": 0.05452075592407519,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.6895136013295229,
-        "regularization_loss": 0.6895136013295229,
-        "validation_residual": 0.023375439077143314,
-        "active_components": 14,
+        "sparsity_loss": 0.3528400618714564,
+        "regularization_loss": 0.3528400618714564,
+        "validation_residual": null,
+        "active_components": 13,
         "effective_rank_by_order": {
           "2": 6,
-          "3": 8
+          "3": 7
         },
-        "mean_gate": 0.45688309262216864,
-        "max_gate": 0.5278615050361701,
-        "min_gate": 0.3424077731901972,
+        "mean_gate": 0.4597737249340753,
+        "max_gate": 0.5251745449522793,
+        "min_gate": 0.3688064457888243,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.3424077731901972,
-            "alpha": 0.4107173987936979,
-            "active": false
+            "gate": 0.4483229710717438,
+            "alpha": -0.5296491877337604,
+            "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4507578460804986,
-            "alpha": -0.31275920354459585,
+            "gate": 0.49821042589234094,
+            "alpha": -0.7329908325518315,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.37298142992898653,
-            "alpha": 0.3274012951999375,
-            "active": false
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.42635033982032133,
-            "alpha": -0.4841264638195855,
+            "gate": 0.42983295636818153,
+            "alpha": -0.13447634536795275,
             "active": true
           },
           {
             "order": 2,
+            "component": 3,
+            "gate": 0.3805691499357165,
+            "alpha": -0.401436760278747,
+            "active": false
+          },
+          {
+            "order": 2,
             "component": 4,
-            "gate": 0.45265319170747426,
-            "alpha": -0.197490576947745,
+            "gate": 0.4334469453150586,
+            "alpha": 0.22035777388654343,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.4355297440826075,
-            "alpha": -0.26476383889107125,
+            "gate": 0.4944671567054295,
+            "alpha": 0.7403197928462164,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.41089733242325926,
-            "alpha": -0.330653439105094,
+            "gate": 0.45741019006566425,
+            "alpha": -0.3370587788539223,
             "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.4550288699457103,
-            "alpha": 0.5079819395256551,
-            "active": true
+            "gate": 0.3688064457888243,
+            "alpha": 0.19179863035613282,
+            "active": false
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.47645573960336995,
-            "alpha": 0.4059204697744012,
+            "gate": 0.4896745707460678,
+            "alpha": -0.9712454956057759,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5278615050361701,
-            "alpha": 0.44496730458809336,
-            "active": true
+            "gate": 0.39751041762697403,
+            "alpha": 0.0487380938772513,
+            "active": false
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.49637325155473777,
-            "alpha": 0.5260417679877155,
+            "gate": 0.4782028597347955,
+            "alpha": -0.2560203272830426,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.4958318331796406,
-            "alpha": -0.21022947055709448,
+            "gate": 0.5251745449522793,
+            "alpha": -0.6041084364852599,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4956273614485195,
-            "alpha": 0.7272291661942876,
+            "gate": 0.475675047330764,
+            "alpha": 2.2437560984253775,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.4795864582651562,
-            "alpha": -0.4321328718260895,
+            "gate": 0.5088008897901214,
+            "alpha": 1.6951492926534772,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.49311271811442076,
-            "alpha": -0.44822513509371603,
+            "gate": 0.5036581003912004,
+            "alpha": -0.7507899561415923,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4986740875736286,
-            "alpha": -0.4309553186346091,
+            "gate": 0.4666169272300435,
+            "alpha": -0.23881108833502204,
             "active": true
           }
         ]
       },
       {
         "epoch": 1500,
-        "loss": 0.7514899159938849,
-        "fit_loss": 0.022373315172764204,
+        "loss": 0.41594112880288314,
+        "fit_loss": 0.04634079698033843,
         "ridge_loss": 0.0,
-        "sparsity_loss": 0.7291166008211207,
-        "regularization_loss": 0.7291166008211207,
-        "validation_residual": 0.02221732632914134,
+        "sparsity_loss": 0.3696003318225447,
+        "regularization_loss": 0.3696003318225447,
+        "validation_residual": null,
         "active_components": 13,
         "effective_rank_by_order": {
-          "2": 5,
-          "3": 8
+          "2": 6,
+          "3": 7
         },
-        "mean_gate": 0.45085123264097277,
-        "max_gate": 0.5249816968145726,
-        "min_gate": 0.3221026708643816,
+        "mean_gate": 0.4517619078188014,
+        "max_gate": 0.5241808475594538,
+        "min_gate": 0.35803133800617415,
         "components": [
           {
             "order": 2,
             "component": 0,
-            "gate": 0.3221026708643816,
-            "alpha": 0.41652557199688206,
-            "active": false
+            "gate": 0.42762515151750763,
+            "alpha": -0.5422906849891651,
+            "active": true
           },
           {
             "order": 2,
             "component": 1,
-            "gate": 0.4446875073785429,
-            "alpha": -0.3118521172178876,
+            "gate": 0.49516149832167405,
+            "alpha": -0.7359600735614694,
             "active": true
           },
           {
             "order": 2,
             "component": 2,
-            "gate": 0.359659047677887,
-            "alpha": 0.3326799619515668,
-            "active": false
-          },
-          {
-            "order": 2,
-            "component": 3,
-            "gate": 0.41474876652647125,
-            "alpha": -0.4832004489324106,
+            "gate": 0.4179020411009007,
+            "alpha": -0.13060919171234173,
             "active": true
           },
           {
             "order": 2,
+            "component": 3,
+            "gate": 0.362910253266204,
+            "alpha": -0.4011996724868723,
+            "active": false
+          },
+          {
+            "order": 2,
             "component": 4,
-            "gate": 0.44607397306354785,
-            "alpha": -0.1987116183952126,
+            "gate": 0.424166323561145,
+            "alpha": 0.2168298658545165,
             "active": true
           },
           {
             "order": 2,
             "component": 5,
-            "gate": 0.4272104641255577,
-            "alpha": -0.2630678055277403,
+            "gate": 0.48354183457199185,
+            "alpha": 0.7407389465080424,
             "active": true
           },
           {
             "order": 2,
             "component": 6,
-            "gate": 0.3997978280250098,
-            "alpha": -0.33033737135964975,
-            "active": false
+            "gate": 0.4474597008001912,
+            "alpha": -0.3351025138912552,
+            "active": true
           },
           {
             "order": 2,
             "component": 7,
-            "gate": 0.44507362669361045,
-            "alpha": 0.5111578880144058,
-            "active": true
+            "gate": 0.35803133800617415,
+            "alpha": 0.19250857335527125,
+            "active": false
           },
           {
             "order": 3,
             "component": 0,
-            "gate": 0.4755159745477189,
-            "alpha": 0.4068417535949479,
+            "gate": 0.48691310408402994,
+            "alpha": -0.9646035909781379,
             "active": true
           },
           {
             "order": 3,
             "component": 1,
-            "gate": 0.5249816968145726,
-            "alpha": 0.4448150234352676,
-            "active": true
+            "gate": 0.3813101909700322,
+            "alpha": 0.05072700368893122,
+            "active": false
           },
           {
             "order": 3,
             "component": 2,
-            "gate": 0.4960661531549925,
-            "alpha": 0.52402305069967,
+            "gate": 0.47726462911618134,
+            "alpha": -0.25576065350432947,
             "active": true
           },
           {
             "order": 3,
             "component": 3,
-            "gate": 0.49524500994271664,
-            "alpha": -0.2101217009289787,
+            "gate": 0.5241808475594538,
+            "alpha": -0.6054523082062895,
             "active": true
           },
           {
             "order": 3,
             "component": 4,
-            "gate": 0.4951825653504825,
-            "alpha": 0.7236496176137333,
+            "gate": 0.4754753114613417,
+            "alpha": 2.2314979082698883,
             "active": true
           },
           {
             "order": 3,
             "component": 5,
-            "gate": 0.47633021859365776,
-            "alpha": -0.4247318887436661,
+            "gate": 0.506315383319701,
+            "alpha": 1.678838054654963,
             "active": true
           },
           {
             "order": 3,
             "component": 6,
-            "gate": 0.4924581253176499,
-            "alpha": -0.4453784472167546,
+            "gate": 0.5007842883906253,
+            "alpha": -0.7623738830674367,
             "active": true
           },
           {
             "order": 3,
             "component": 7,
-            "gate": 0.4984860941787647,
-            "alpha": -0.4314130056039218,
+            "gate": 0.45914862905366827,
+            "alpha": -0.2627639897020685,
+            "active": true
+          }
+        ]
+      },
+      {
+        "epoch": 1600,
+        "loss": 0.42447704930830626,
+        "fit_loss": 0.03968753418287304,
+        "ridge_loss": 0.0,
+        "sparsity_loss": 0.38478951512543325,
+        "regularization_loss": 0.38478951512543325,
+        "validation_residual": null,
+        "active_components": 13,
+        "effective_rank_by_order": {
+          "2": 6,
+          "3": 7
+        },
+        "mean_gate": 0.44318751108115767,
+        "max_gate": 0.5230562759391583,
+        "min_gate": 0.34498566518822776,
+        "components": [
+          {
+            "order": 2,
+            "component": 0,
+            "gate": 0.4060859910617878,
+            "alpha": -0.5529482930845596,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 1,
+            "gate": 0.4916111605200142,
+            "alpha": -0.738372730222021,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 2,
+            "gate": 0.4051734954470234,
+            "alpha": -0.12729615739844485,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 3,
+            "gate": 0.34498566518822776,
+            "alpha": -0.40197242793728394,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 4,
+            "gate": 0.41410368784562274,
+            "alpha": 0.21382006292026054,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 5,
+            "gate": 0.4714265500066683,
+            "alpha": 0.7397882132861268,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 6,
+            "gate": 0.43655362210355475,
+            "alpha": -0.3331566214697563,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 7,
+            "gate": 0.3464855224054943,
+            "alpha": 0.19358258264729425,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 0,
+            "gate": 0.48393750812731817,
+            "alpha": -0.9591817977736964,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 1,
+            "gate": 0.36441901099643875,
+            "alpha": 0.0526118304616702,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 2,
+            "gate": 0.47623030322908405,
+            "alpha": -0.2557703695500755,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 3,
+            "gate": 0.5230562759391583,
+            "alpha": -0.6069538951930721,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 4,
+            "gate": 0.4752753016822204,
+            "alpha": 2.220133875844327,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 5,
+            "gate": 0.503620752084823,
+            "alpha": 1.6645533946399091,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 6,
+            "gate": 0.4974753856215143,
+            "alpha": -0.774313302758497,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 7,
+            "gate": 0.4505599450395726,
+            "alpha": -0.288330410126491,
+            "active": true
+          }
+        ]
+      },
+      {
+        "epoch": 1700,
+        "loss": 0.43264623672961666,
+        "fit_loss": 0.03421145692740243,
+        "ridge_loss": 0.0,
+        "sparsity_loss": 0.39843477980221426,
+        "regularization_loss": 0.39843477980221426,
+        "validation_residual": null,
+        "active_components": 11,
+        "effective_rank_by_order": {
+          "2": 4,
+          "3": 7
+        },
+        "mean_gate": 0.43412831173550664,
+        "max_gate": 0.5217871156968451,
+        "min_gate": 0.32701605856763677,
+        "components": [
+          {
+            "order": 2,
+            "component": 0,
+            "gate": 0.38420905835366986,
+            "alpha": -0.5622784101401519,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 1,
+            "gate": 0.4875509778651905,
+            "alpha": -0.7404356452339381,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 2,
+            "gate": 0.3917230544562234,
+            "alpha": -0.124459169033727,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 3,
+            "gate": 0.32701605856763677,
+            "alpha": -0.4036933032977948,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 4,
+            "gate": 0.40329100911253735,
+            "alpha": 0.21131093087439534,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 5,
+            "gate": 0.45823056354607955,
+            "alpha": 0.7378417459364777,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 6,
+            "gate": 0.4247484480964062,
+            "alpha": -0.3312340379894947,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 7,
+            "gate": 0.3342641885899163,
+            "alpha": 0.19487159870807338,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 0,
+            "gate": 0.48071834882512854,
+            "alpha": -0.9547888969837682,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 1,
+            "gate": 0.34707657333714004,
+            "alpha": 0.054366171737492724,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 2,
+            "gate": 0.4750870262675591,
+            "alpha": -0.25597858367264853,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 3,
+            "gate": 0.5217871156968451,
+            "alpha": -0.6085311300368842,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 4,
+            "gate": 0.4750714267422602,
+            "alpha": 2.2094773252835003,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 5,
+            "gate": 0.5006989640452253,
+            "alpha": 1.6521854324470582,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 6,
+            "gate": 0.4937011263174062,
+            "alpha": -0.7865801116400346,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 7,
+            "gate": 0.44087904794888133,
+            "alpha": -0.31555305823103985,
+            "active": true
+          }
+        ]
+      },
+      {
+        "epoch": 1800,
+        "loss": 0.44023286088556185,
+        "fit_loss": 0.02965479810324304,
+        "ridge_loss": 0.0,
+        "sparsity_loss": 0.4105780627823188,
+        "regularization_loss": 0.4105780627823188,
+        "validation_residual": null,
+        "active_components": 10,
+        "effective_rank_by_order": {
+          "2": 3,
+          "3": 7
+        },
+        "mean_gate": 0.4246610633764252,
+        "max_gate": 0.5203599059878048,
+        "min_gate": 0.3091992060115425,
+        "components": [
+          {
+            "order": 2,
+            "component": 0,
+            "gate": 0.36239599473168516,
+            "alpha": -0.5707164987957104,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 1,
+            "gate": 0.48296980315308585,
+            "alpha": -0.7423179104999652,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 2,
+            "gate": 0.3776492291484871,
+            "alpha": -0.1220258956702355,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 3,
+            "gate": 0.3091992060115425,
+            "alpha": -0.4062638219698153,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 4,
+            "gate": 0.39177558357467007,
+            "alpha": 0.2092667740644632,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 5,
+            "gate": 0.4440819952505106,
+            "alpha": 0.7352497072455445,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 6,
+            "gate": 0.41212015446978734,
+            "alpha": -0.3293430173762985,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 7,
+            "gate": 0.3214825547965736,
+            "alpha": 0.1962542482532498,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 0,
+            "gate": 0.47722627925987926,
+            "alpha": -0.951251653793762,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 1,
+            "gate": 0.3295183969699224,
+            "alpha": 0.055965370143038845,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 2,
+            "gate": 0.4738211561171476,
+            "alpha": -0.2563183202323891,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 3,
+            "gate": 0.5203599059878048,
+            "alpha": -0.6101221613223053,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 4,
+            "gate": 0.4748606649302507,
+            "alpha": 2.199390189062671,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 5,
+            "gate": 0.4975324226194053,
+            "alpha": 1.6416203878002231,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 6,
+            "gate": 0.4894353277007544,
+            "alpha": -0.7991645041640559,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 7,
+            "gate": 0.4301483393012964,
+            "alpha": -0.34442663237272236,
+            "active": true
+          }
+        ]
+      },
+      {
+        "epoch": 1900,
+        "loss": 0.4470991806084897,
+        "fit_loss": 0.025825606952297415,
+        "ridge_loss": 0.0,
+        "sparsity_loss": 0.4212735736561923,
+        "regularization_loss": 0.4212735736561923,
+        "validation_residual": null,
+        "active_components": 9,
+        "effective_rank_by_order": {
+          "2": 2,
+          "3": 7
+        },
+        "mean_gate": 0.4148607014895443,
+        "max_gate": 0.5187615047842928,
+        "min_gate": 0.2917050580768533,
+        "components": [
+          {
+            "order": 2,
+            "component": 0,
+            "gate": 0.3409569485203884,
+            "alpha": -0.5785415492216579,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 1,
+            "gate": 0.4778545705391143,
+            "alpha": -0.7441497615546262,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 2,
+            "gate": 0.3630683264158658,
+            "alpha": -0.11992796580156521,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 3,
+            "gate": 0.2917050580768533,
+            "alpha": -0.4095629583611759,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 4,
+            "gate": 0.37962024912130193,
+            "alpha": 0.20763894975979272,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 5,
+            "gate": 0.4291236277548931,
+            "alpha": 0.7323138934990191,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 6,
+            "gate": 0.39876323662844243,
+            "alpha": -0.32748927950819073,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 7,
+            "gate": 0.3082699892889944,
+            "alpha": 0.1976323189874911,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 0,
+            "gate": 0.473433142314067,
+            "alpha": -0.9484260250515402,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 1,
+            "gate": 0.31196498255493377,
+            "alpha": 0.05739094382499341,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 2,
+            "gate": 0.47241872183351613,
+            "alpha": -0.2567316865390401,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 3,
+            "gate": 0.5187615047842928,
+            "alpha": -0.6116848856673608,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 4,
+            "gate": 0.47464039080553205,
+            "alpha": 2.189766135807891,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 5,
+            "gate": 0.4941035720220546,
+            "alpha": 1.6327518903168678,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 6,
+            "gate": 0.4846556412976969,
+            "alpha": -0.8120776490239412,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 7,
+            "gate": 0.41843126187476215,
+            "alpha": -0.3749510191088034,
+            "active": true
+          }
+        ]
+      },
+      {
+        "epoch": 2000,
+        "loss": 0.4531657542335564,
+        "fit_loss": 0.02258032475744874,
+        "ridge_loss": 0.0,
+        "sparsity_loss": 0.4305854294761076,
+        "regularization_loss": 0.4305854294761076,
+        "validation_residual": null,
+        "active_components": 9,
+        "effective_rank_by_order": {
+          "2": 2,
+          "3": 7
+        },
+        "mean_gate": 0.40479958252244974,
+        "max_gate": 0.5169790015617985,
+        "min_gate": 0.274673842538671,
+        "components": [
+          {
+            "order": 2,
+            "component": 0,
+            "gate": 0.32012440175680656,
+            "alpha": -0.5859313518133987,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 1,
+            "gate": 0.4721916299382362,
+            "alpha": -0.7460270132813701,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 2,
+            "gate": 0.3481089626909609,
+            "alpha": -0.1181014195040967,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 3,
+            "gate": 0.274673842538671,
+            "alpha": -0.4134612173599129,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 4,
+            "gate": 0.3669026225309154,
+            "alpha": 0.2063715064723179,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 5,
+            "gate": 0.4135082568214659,
+            "alpha": 0.7292752626423596,
+            "active": true
+          },
+          {
+            "order": 2,
+            "component": 6,
+            "gate": 0.3847879825830826,
+            "alpha": -0.32567577849970786,
+            "active": false
+          },
+          {
+            "order": 2,
+            "component": 7,
+            "gate": 0.2947636123385587,
+            "alpha": 0.19892834627760678,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 0,
+            "gate": 0.4693124930338002,
+            "alpha": -0.94619878400449,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 1,
+            "gate": 0.2946133143426308,
+            "alpha": 0.05863229020278042,
+            "active": false
+          },
+          {
+            "order": 3,
+            "component": 2,
+            "gate": 0.47086577550586206,
+            "alpha": -0.2571729201826705,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 3,
+            "gate": 0.5169790015617985,
+            "alpha": -0.6131946852647104,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 4,
+            "gate": 0.47440823388917075,
+            "alpha": 2.180517296239495,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 5,
+            "gate": 0.4903945588731395,
+            "alpha": 1.6254803956228896,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 6,
+            "gate": 0.47934377730824007,
+            "alpha": -0.8253563952269237,
+            "active": true
+          },
+          {
+            "order": 3,
+            "component": 7,
+            "gate": 0.40581485464585615,
+            "alpha": -0.4071632519787475,
             "active": true
           }
         ]
@@ -3440,308 +2939,247 @@
     {
       "order": 2,
       "rank": 1,
-      "gate": 0.4446875073785429,
-      "alpha": -0.3118521172178876,
+      "gate": 0.4721916299382362,
+      "alpha": -0.7460270132813701,
       "factors": [
         [
-          -0.4329696208058338,
-          0.34888400122321483,
-          -0.4806746274999513,
-          -0.6780628021264072
+          -0.15790651766825425,
+          0.0,
+          -0.25532822613141193,
+          -0.8442520662239037,
+          0.43306262676373924
         ],
         [
-          -0.037817935586268836,
-          0.3778676413497247,
-          -0.09474801533179346,
-          0.9202220726321854
-        ]
-      ]
-    },
-    {
-      "order": 2,
-      "rank": 3,
-      "gate": 0.41474876652647125,
-      "alpha": -0.4832004489324106,
-      "factors": [
-        [
-          0.6212607181139056,
-          0.6342725334633651,
-          0.07645208110987783,
-          -0.45374943825477887
-        ],
-        [
-          0.744573470282688,
-          -0.3459775574138681,
-          0.44793588680770013,
-          0.3539255831766445
-        ]
-      ]
-    },
-    {
-      "order": 2,
-      "rank": 4,
-      "gate": 0.44607397306354785,
-      "alpha": -0.1987116183952126,
-      "factors": [
-        [
-          -0.3969768767300776,
-          0.6064890297352238,
-          0.5334460253952628,
-          -0.4359079652202472
-        ],
-        [
-          0.3846180076759244,
-          -0.709014201979836,
-          -0.5487245163299553,
-          0.21970265073675319
+          0.30741460436882223,
+          -0.8856270363200469,
+          0.29269067530211745,
+          0.15366961072205226,
+          -0.10899005868176383
         ]
       ]
     },
     {
       "order": 2,
       "rank": 5,
-      "gate": 0.4272104641255577,
-      "alpha": -0.2630678055277403,
+      "gate": 0.4135082568214659,
+      "alpha": 0.7292752626423596,
       "factors": [
         [
-          0.6132295539531794,
-          0.5218775874290417,
-          -0.03501696089761982,
-          -0.5919181618662517
+          -0.2799152655700479,
+          0.8376488640579628,
+          -0.4212080269478896,
+          -0.11693953560695294,
+          -0.170002257896624
         ],
         [
-          -0.6851109929408729,
-          -0.45759819911455535,
-          0.1817015009537231,
-          0.5368532202286312
-        ]
-      ]
-    },
-    {
-      "order": 2,
-      "rank": 7,
-      "gate": 0.44507362669361045,
-      "alpha": 0.5111578880144058,
-      "factors": [
-        [
-          -0.5620473392812301,
-          -0.7229313710534074,
-          0.19352320335903014,
-          0.35216727689464583
-        ],
-        [
-          0.34723651422157026,
-          -0.12870031714628852,
-          0.136839643469177,
-          -0.9187697989882593
+          -0.606690681522468,
+          0.17877897003909834,
+          -0.7432685872351532,
+          -0.10819752762525117,
+          0.18923424391691043
         ]
       ]
     },
     {
       "order": 3,
       "rank": 0,
-      "gate": 0.4755159745477189,
-      "alpha": 0.4068417535949479,
+      "gate": 0.4693124930338002,
+      "alpha": -0.94619878400449,
       "factors": [
         [
-          0.6299688645974143,
-          -0.6598939864251265,
-          0.06422369386444175,
-          -0.4044186858494624
-        ],
-        [
-          0.5443469437793597,
-          0.586680909173807,
-          -0.5995650681872321,
+          0.16074006853855316,
+          -0.5178104254346853,
+          0.8366184976982428,
+          0.0,
           0.0
         ],
         [
-          -0.17942756033163865,
-          -0.4664003197013978,
-          0.28762834454179415,
-          -0.8170351447716416
-        ]
-      ]
-    },
-    {
-      "order": 3,
-      "rank": 1,
-      "gate": 0.5249816968145726,
-      "alpha": 0.4448150234352676,
-      "factors": [
-        [
-          0.020047033629567154,
-          -0.916004672920104,
-          0.37659309866931495,
-          -0.13678886528454018
+          -0.17783522671683033,
+          0.2972688496199402,
+          -0.5424913413610627,
+          0.23291745227640642,
+          -0.7290119808052223
         ],
         [
-          0.5571028945178008,
-          -0.766490659700775,
-          0.12297023323646768,
-          -0.29496907507250236
-        ],
-        [
-          -0.4528593306726837,
-          0.09903544291561978,
-          0.3538068630714677,
-          -0.8123614413010528
+          -0.40803916785220895,
+          0.1936794898075859,
+          0.0,
+          -0.3520995305213334,
+          0.819461278802499
         ]
       ]
     },
     {
       "order": 3,
       "rank": 2,
-      "gate": 0.4960661531549925,
-      "alpha": 0.52402305069967,
+      "gate": 0.47086577550586206,
+      "alpha": -0.2571729201826705,
       "factors": [
         [
-          -0.18689044828915147,
-          -0.8859173330610141,
-          0.1722161513160871,
-          0.3880258194324379
+          -0.5812972650827064,
+          0.6517215174291756,
+          0.0,
+          -0.4161430519302256,
+          0.24477206808653124
         ],
         [
-          -0.10262418684633855,
-          0.051433906462801764,
-          -0.31309497953420096,
-          0.9427589105018217
+          0.3849990583005861,
+          0.43145164390358287,
+          -0.13578920828169774,
+          -0.26829434059992313,
+          -0.758422469206207
         ],
         [
-          0.5825058841151158,
-          0.6686596069597246,
-          -0.1727623957609517,
-          -0.4286424845983773
+          -0.17364984053891125,
+          -0.20208960688137964,
+          0.7016106746382561,
+          0.6257010742288406,
+          -0.21271142567776236
         ]
       ]
     },
     {
       "order": 3,
       "rank": 3,
-      "gate": 0.49524500994271664,
-      "alpha": -0.2101217009289787,
+      "gate": 0.5169790015617985,
+      "alpha": -0.6131946852647104,
       "factors": [
         [
-          -0.2818075946181238,
-          -0.2405804892164229,
-          -0.9051150453703493,
-          0.20850002989967242
+          0.6991612825443664,
+          -0.5005986854770449,
+          -0.23601532548622042,
+          0.20576512181236667,
+          -0.4031524995218891
         ],
         [
-          0.20300622928139922,
-          0.17823116492740299,
-          -0.29858896838463345,
-          0.9153506162561804
+          -0.5268392510274031,
+          0.6546033056670604,
+          0.473170700711085,
+          0.0,
+          0.2646274547318473
         ],
         [
-          0.045294958635697824,
-          -0.048956931292359826,
-          -0.9897495670516566,
-          -0.1262829367796134
+          -0.38187577048023125,
+          0.0,
+          -0.31962739553133596,
+          0.8536312893255101,
+          0.15123500596395364
         ]
       ]
     },
     {
       "order": 3,
       "rank": 4,
-      "gate": 0.4951825653504825,
-      "alpha": 0.7236496176137333,
+      "gate": 0.47440823388917075,
+      "alpha": 2.180517296239495,
       "factors": [
         [
-          0.5467514957426096,
-          0.38665526822599483,
-          -0.6059108466470005,
-          -0.42945611111243753
+          0.3213902041166177,
+          0.0,
+          -0.27238604105682707,
+          0.6183655099314213,
+          -0.6605265184726369
         ],
         [
-          0.5377536771654283,
-          -0.4551007455895416,
-          -0.661987981100944,
-          0.25588319002388515
+          0.0,
+          -0.7720559509853598,
+          0.2913342373943107,
+          0.49639855889692963,
+          0.2607114926539389
         ],
         [
-          -0.05331168886490386,
-          0.16680706802315828,
-          -0.16735784122940128,
-          0.97021885101606
+          -0.7822803883632184,
+          0.35079849196008805,
+          0.28333459428250146,
+          0.0,
+          0.4262937369633038
         ]
       ]
     },
     {
       "order": 3,
       "rank": 5,
-      "gate": 0.47633021859365776,
-      "alpha": -0.4247318887436661,
+      "gate": 0.4903945588731395,
+      "alpha": 1.6254803956228896,
       "factors": [
         [
-          0.4201494967907825,
-          -0.6327565252485486,
-          0.5489983017860652,
-          -0.348847308629222
+          -0.5589892342779671,
+          0.0,
+          -0.7835763775170799,
+          -0.2583860282204829,
+          0.0
         ],
         [
-          0.7758273537302613,
-          0.33834803053447404,
-          0.4188462669206271,
-          0.328907786657594
+          -0.8662204339375864,
+          0.0,
+          -0.12085107620020795,
+          -0.4598324855430346,
+          -0.13241193907934398
         ],
         [
-          -0.9268886600317718,
-          -0.056099578713968305,
-          0.02299648666902156,
-          0.3704070879093749
+          0.5137896738891841,
+          -0.7700358676353292,
+          0.12028891173961818,
+          0.3051822354569609,
+          -0.18830643757965917
         ]
       ]
     },
     {
       "order": 3,
       "rank": 6,
-      "gate": 0.4924581253176499,
-      "alpha": -0.4453784472167546,
+      "gate": 0.47934377730824007,
+      "alpha": -0.8253563952269237,
       "factors": [
         [
-          0.30018182051984643,
-          -0.247548134355448,
-          -0.26423272105424217,
-          0.8824918497815144
+          -0.4047375421433195,
+          -0.13375120502887697,
+          0.5850200635983023,
+          -0.11331697107413122,
+          0.6805945389048687
         ],
         [
-          0.44482910836329476,
-          -0.8033418049753824,
-          0.33153035275142334,
-          0.21646393218300253
+          0.19495537591709922,
+          -0.6856950464263609,
+          0.0,
+          0.12356026819896805,
+          -0.6890247239918398
         ],
         [
-          -0.19434185204607238,
-          0.7951924301205975,
-          -0.27201397506011116,
-          -0.5058741355260206
+          0.26181069812008734,
+          -0.5114831236992002,
+          -0.5995738630579919,
+          0.44622635350311735,
+          0.33351671127217675
         ]
       ]
     },
     {
       "order": 3,
       "rank": 7,
-      "gate": 0.4984860941787647,
-      "alpha": -0.4314130056039218,
+      "gate": 0.40581485464585615,
+      "alpha": -0.4071632519787475,
       "factors": [
         [
-          -0.1372417540904182,
-          0.22573940666318756,
-          -0.2522833883492156,
-          -0.9308917838162372
+          0.0,
+          -0.6633763098523036,
+          0.0,
+          0.291880323330318,
+          0.6847091579905926
         ],
         [
-          -0.46435773137877384,
-          -0.6861334449588745,
-          0.0856750853479099,
-          0.5534009150410343
+          0.6388964207143069,
+          0.6302330881820293,
+          -0.2784813746083132,
+          0.34007598802942457,
+          0.0
         ],
         [
-          -0.20840491954102872,
-          -0.3655087525377964,
-          -0.7632678734709506,
-          0.49029878100653523
+          -0.6131306691013352,
+          -0.5657428236970831,
+          -0.1067634038532752,
+          0.5159467237591098,
+          0.16250044271479314
         ]
       ]
     }
@@ -3749,67 +3187,1075 @@
   "expanded_terms": [
     {
       "term": "1",
-      "coefficient_estimate": 0.07684282750342702
+      "coefficient_estimate": 0.03194574144487532
     },
     {
       "term": "u",
-      "coefficient_estimate": -0.3470896037162342
+      "coefficient_estimate": -0.2497148667373458
     },
     {
       "term": "u_x",
-      "coefficient_estimate": -0.8281928233254462
+      "coefficient_estimate": -0.2730196544241408
     },
     {
       "term": "u_xx",
-      "coefficient_estimate": 0.1421817456364113
+      "coefficient_estimate": 0.07952933386257893
+    },
+    {
+      "term": "u_xxx",
+      "coefficient_estimate": 0.03643946419208493
+    },
+    {
+      "term": "u_xxxx",
+      "coefficient_estimate": -0.003760428714307715
     },
     {
       "term": "u^2",
-      "coefficient_estimate": -6.267822555717661
+      "coefficient_estimate": -9.80616017098442
     },
     {
       "term": "u*u_x",
-      "coefficient_estimate": 0.20847462032252162
+      "coefficient_estimate": -1.4991960845592183
     },
     {
       "term": "u*u_xx",
-      "coefficient_estimate": -0.7479096615411819
+      "coefficient_estimate": -0.6305533307276098
+    },
+    {
+      "term": "u*u_xxx",
+      "coefficient_estimate": -0.3442290567107412
+    },
+    {
+      "term": "u*u_xxxx",
+      "coefficient_estimate": 0.008622172686714754
     },
     {
       "term": "u_x^2",
-      "coefficient_estimate": 0.43791579378793
+      "coefficient_estimate": 0.7079764075080823
+    },
+    {
+      "term": "u_x*u_xx",
+      "coefficient_estimate": 0.03291326812056743
+    },
+    {
+      "term": "u_x*u_xxx",
+      "coefficient_estimate": -0.05797805608110779
+    },
+    {
+      "term": "u_x*u_xxxx",
+      "coefficient_estimate": 0.02457307853894782
+    },
+    {
+      "term": "u_xx^2",
+      "coefficient_estimate": -0.013837777777700485
+    },
+    {
+      "term": "u_xx*u_xxx",
+      "coefficient_estimate": -0.002173969471452349
+    },
+    {
+      "term": "u_xx*u_xxxx",
+      "coefficient_estimate": -0.004064580301999032
+    },
+    {
+      "term": "u_xxx^2",
+      "coefficient_estimate": 0.0018185000707794158
+    },
+    {
+      "term": "u_xxx*u_xxxx",
+      "coefficient_estimate": 0.0001192492716865316
+    },
+    {
+      "term": "u_xxxx^2",
+      "coefficient_estimate": -0.00010181039731576855
     },
     {
       "term": "u^3",
-      "coefficient_estimate": 12.04066455348305
+      "coefficient_estimate": 37.383750951310724
     },
     {
       "term": "u^2*u_x",
-      "coefficient_estimate": -2.4875816181300388
+      "coefficient_estimate": -5.542588903402609
     },
     {
       "term": "u^2*u_xx",
-      "coefficient_estimate": 2.1480619542709922
+      "coefficient_estimate": 5.631956218607816
+    },
+    {
+      "term": "u^2*u_xxx",
+      "coefficient_estimate": 1.8832641164371413
+    },
+    {
+      "term": "u^2*u_xxxx",
+      "coefficient_estimate": -0.04294665456714913
     },
     {
       "term": "u*u_x^2",
-      "coefficient_estimate": -0.9955588972180197
+      "coefficient_estimate": -4.963010176082445
     },
     {
       "term": "u*u_x*u_xx",
-      "coefficient_estimate": 0.06766465683494523
+      "coefficient_estimate": -2.8548108087141846
+    },
+    {
+      "term": "u*u_x*u_xxx",
+      "coefficient_estimate": -0.1009784508825448
+    },
+    {
+      "term": "u*u_x*u_xxxx",
+      "coefficient_estimate": -0.14423877647478017
     },
     {
       "term": "u*u_xx^2",
-      "coefficient_estimate": 0.06351316541386086
+      "coefficient_estimate": 0.38201722242259556
+    },
+    {
+      "term": "u*u_xx*u_xxx",
+      "coefficient_estimate": 0.1186612728414367
+    },
+    {
+      "term": "u*u_xx*u_xxxx",
+      "coefficient_estimate": 0.026869146774074194
+    },
+    {
+      "term": "u*u_xxx^2",
+      "coefficient_estimate": -0.0047936666825776865
+    },
+    {
+      "term": "u*u_xxx*u_xxxx",
+      "coefficient_estimate": -0.0025466150697593904
+    },
+    {
+      "term": "u*u_xxxx^2",
+      "coefficient_estimate": 0.000890439871846773
     },
     {
       "term": "u_x^3",
-      "coefficient_estimate": -0.10559746212683124
+      "coefficient_estimate": -0.003079066500581788
     },
     {
       "term": "u_x^2*u_xx",
-      "coefficient_estimate": 0.037001877797860336
+      "coefficient_estimate": -0.179734497739461
+    },
+    {
+      "term": "u_x^2*u_xxx",
+      "coefficient_estimate": -0.05625753757495855
+    },
+    {
+      "term": "u_x^2*u_xxxx",
+      "coefficient_estimate": 0.02092710121762761
+    },
+    {
+      "term": "u_x*u_xx^2",
+      "coefficient_estimate": -0.07666223783697733
+    },
+    {
+      "term": "u_x*u_xx*u_xxx",
+      "coefficient_estimate": -0.010878780531541102
+    },
+    {
+      "term": "u_x*u_xx*u_xxxx",
+      "coefficient_estimate": -0.0061701085535757864
+    },
+    {
+      "term": "u_x*u_xxx^2",
+      "coefficient_estimate": 0.0004917108158522002
+    },
+    {
+      "term": "u_x*u_xxx*u_xxxx",
+      "coefficient_estimate": 0.00012499845995091595
+    },
+    {
+      "term": "u_x*u_xxxx^2",
+      "coefficient_estimate": -4.58797738607355e-05
+    },
+    {
+      "term": "u_xx^3",
+      "coefficient_estimate": -0.005347652651918661
+    },
+    {
+      "term": "u_xx^2*u_xxx",
+      "coefficient_estimate": 0.0027467837487326003
+    },
+    {
+      "term": "u_xx^2*u_xxxx",
+      "coefficient_estimate": -0.0006954172596238905
+    },
+    {
+      "term": "u_xx*u_xxx^2",
+      "coefficient_estimate": 0.0022325790354669113
+    },
+    {
+      "term": "u_xx*u_xxx*u_xxxx",
+      "coefficient_estimate": -0.0001269063887213162
+    },
+    {
+      "term": "u_xx*u_xxxx^2",
+      "coefficient_estimate": 1.521490288742823e-06
+    },
+    {
+      "term": "u_xxx^3",
+      "coefficient_estimate": 4.375414043937734e-05
+    },
+    {
+      "term": "u_xxx^2*u_xxxx",
+      "coefficient_estimate": 2.782612246138527e-05
+    },
+    {
+      "term": "u_xxx*u_xxxx^2",
+      "coefficient_estimate": 2.8427057597742272e-06
+    },
+    {
+      "term": "u_xxxx^3",
+      "coefficient_estimate": -3.3701875273338125e-07
+    }
+  ],
+  "prune_metric": "stridge",
+  "contribution_threshold": 0.2,
+  "candidate_contribution_threshold": 0.01,
+  "stlsq_threshold": 0.03,
+  "stridge_lambda": 1e-05,
+  "candidate_term_importance": [],
+  "final_term_importance": [
+    {
+      "index": 0,
+      "term": "1",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 1.0,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 1,
+      "term": "u",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.1757591492619227,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 2,
+      "term": "u_x",
+      "coefficient": -1.0006346686297827,
+      "coefficient_abs": 1.0006346686297827,
+      "scaled_coefficient": -0.4099601820800868,
+      "scaled_coefficient_abs": 0.4099601820800868,
+      "column_rms": 0.4097001582420336,
+      "contribution_rms": 0.40996018208008794,
+      "relative_contribution": 0.7797449860452982,
+      "score": 0.4099601820800868,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": true
+    },
+    {
+      "index": 3,
+      "term": "u_xx",
+      "coefficient": 0.24986896676016263,
+      "coefficient_abs": 0.24986896676016263,
+      "scaled_coefficient": 0.34124000051279996,
+      "scaled_coefficient_abs": 0.34124000051279996,
+      "column_rms": 1.3656757977485858,
+      "contribution_rms": 0.3412400005128005,
+      "relative_contribution": 0.6490390800586848,
+      "score": 0.34124000051279996,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": true
+    },
+    {
+      "index": 4,
+      "term": "u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 5.588122734829753,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 5,
+      "term": "u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 27.772325144269878,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 6,
+      "term": "u^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.053020151720822264,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 7,
+      "term": "u*u_x",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.08392288445554054,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 8,
+      "term": "u*u_xx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.4252378382323522,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 9,
+      "term": "u*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 1.3603769463137714,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 10,
+      "term": "u*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 8.076673764845193,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 11,
+      "term": "u_x^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.32965067168046186,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 12,
+      "term": "u_x*u_xx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.7033858587661127,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 13,
+      "term": "u_x*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 5.526889514681022,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 14,
+      "term": "u_x*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 20.854140853088378,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 15,
+      "term": "u_xx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 4.228557531392136,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 16,
+      "term": "u_xx*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 11.478414731928858,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 17,
+      "term": "u_xx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 89.01687254773745,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 18,
+      "term": "u_xxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 115.37386936017732,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 19,
+      "term": "u_xxx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 398.8204361672715,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 20,
+      "term": "u_xxxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 2884.73292965357,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 21,
+      "term": "u^3",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.02061744260331932,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 22,
+      "term": "u^2*u_x",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.02716155029469396,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 23,
+      "term": "u^2*u_xx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.18415144734201933,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 24,
+      "term": "u^2*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.4761494522082147,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 25,
+      "term": "u^2*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 3.5006726070319374,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 26,
+      "term": "u*u_x^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.07436143769822386,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 27,
+      "term": "u*u_x*u_xx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.22275681952063936,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 28,
+      "term": "u*u_x*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 1.3316904426966676,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 29,
+      "term": "u*u_x*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 6.253832631902755,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 30,
+      "term": "u*u_xx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 1.7952094938973133,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 31,
+      "term": "u*u_xx*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 3.979116093450721,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 32,
+      "term": "u*u_xx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 37.20153995924677,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 33,
+      "term": "u*u_xxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 27.25797071588111,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 34,
+      "term": "u*u_xxx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 112.28432268267521,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 35,
+      "term": "u*u_xxxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 1050.08798959223,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 36,
+      "term": "u_x^3",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.35994456835863836,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 37,
+      "term": "u_x^2*u_xx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 0.6294755722468784,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 38,
+      "term": "u_x^2*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 7.07943745040442,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 39,
+      "term": "u_x^2*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 24.194652922759822,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 40,
+      "term": "u_x*u_xx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 2.3603916845622344,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 41,
+      "term": "u_x*u_xx*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 11.538366076553245,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 42,
+      "term": "u_x*u_xx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 73.96787655445249,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 43,
+      "term": "u_x*u_xxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 162.0972370255942,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 44,
+      "term": "u_x*u_xxx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 509.74984788971113,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 45,
+      "term": "u_x*u_xxxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 3038.355885064074,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 46,
+      "term": "u_xx^3",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 18.79652483071774,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 47,
+      "term": "u_xx^2*u_xxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 40.25375886416601,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 48,
+      "term": "u_xx^2*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 418.8681198958922,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 49,
+      "term": "u_xx*u_xxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 243.52853184173284,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 50,
+      "term": "u_xx*u_xxx*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 1329.1169291069205,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 51,
+      "term": "u_xx*u_xxxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 12567.486163841239,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 52,
+      "term": "u_xxx^3",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 3958.356897544185,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 53,
+      "term": "u_xxx^2*u_xxxx",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 11588.51360774239,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 54,
+      "term": "u_xxx*u_xxxx^2",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 60702.58142640547,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
+    },
+    {
+      "index": 55,
+      "term": "u_xxxx^3",
+      "coefficient": 0.0,
+      "coefficient_abs": 0.0,
+      "scaled_coefficient": 0.0,
+      "scaled_coefficient_abs": 0.0,
+      "column_rms": 474350.24720974476,
+      "contribution_rms": 0.0,
+      "relative_contribution": 0.0,
+      "score": 0.0,
+      "threshold": 0.03,
+      "ridge_lambda": 1e-05,
+      "kept": false
     }
   ],
   "candidate_support": [
@@ -3817,76 +4263,76 @@
     "u",
     "u_x",
     "u_xx",
+    "u_xxx",
+    "u_xxxx",
     "u^2",
     "u*u_x",
     "u*u_xx",
+    "u*u_xxx",
+    "u*u_xxxx",
     "u_x^2",
+    "u_x*u_xx",
+    "u_x*u_xxx",
+    "u_x*u_xxxx",
+    "u_xx^2",
+    "u_xx*u_xxx",
+    "u_xx*u_xxxx",
+    "u_xxx^2",
+    "u_xxx*u_xxxx",
+    "u_xxxx^2",
     "u^3",
     "u^2*u_x",
     "u^2*u_xx",
+    "u^2*u_xxx",
+    "u^2*u_xxxx",
     "u*u_x^2",
     "u*u_x*u_xx",
+    "u*u_x*u_xxx",
+    "u*u_x*u_xxxx",
     "u*u_xx^2",
+    "u*u_xx*u_xxx",
+    "u*u_xx*u_xxxx",
+    "u*u_xxx^2",
+    "u*u_xxx*u_xxxx",
+    "u*u_xxxx^2",
     "u_x^3",
-    "u_x^2*u_xx"
+    "u_x^2*u_xx",
+    "u_x^2*u_xxx",
+    "u_x^2*u_xxxx",
+    "u_x*u_xx^2",
+    "u_x*u_xx*u_xxx",
+    "u_x*u_xx*u_xxxx",
+    "u_x*u_xxx^2",
+    "u_x*u_xxx*u_xxxx",
+    "u_x*u_xxxx^2",
+    "u_xx^3",
+    "u_xx^2*u_xxx",
+    "u_xx^2*u_xxxx",
+    "u_xx*u_xxx^2",
+    "u_xx*u_xxx*u_xxxx",
+    "u_xx*u_xxxx^2",
+    "u_xxx^3",
+    "u_xxx^2*u_xxxx",
+    "u_xxx*u_xxxx^2",
+    "u_xxxx^3"
   ],
   "final_support": [
-    "1",
-    "u",
     "u_x",
-    "u_xx",
-    "u^2",
-    "u*u_x",
-    "u*u_xx",
-    "u_x^2",
-    "u^3",
-    "u^2*u_x",
-    "u^2*u_xx",
-    "u*u_x^2",
-    "u*u_x*u_xx",
-    "u*u_xx^2",
-    "u_x^3"
+    "u_xx"
   ],
   "coefficients": {
-    "1": 0.12387626696855285,
-    "u": -1.9159088659820545,
-    "u_x": -0.8086470952178565,
-    "u_xx": 0.029802650484529642,
-    "u^2": 5.054599248170767,
-    "u*u_x": 1.0097479905469877,
-    "u*u_xx": 0.48275598254111474,
-    "u_x^2": 0.41124666891341377,
-    "u^3": -12.849056690275827,
-    "u^2*u_x": -6.541757770773193,
-    "u^2*u_xx": -1.6092879328476148,
-    "u*u_x^2": -1.4347825086727366,
-    "u*u_x*u_xx": -0.3187595598875657,
-    "u*u_xx^2": -0.05222673407253151,
-    "u_x^3": -0.10329353520876809
+    "u_x": -1.0006346686297827,
+    "u_xx": 0.24986896676016263
   },
-  "residual_mse": 0.01641878944433086,
-  "validation_residual_mse": 0.016486931412627193,
+  "residual_mse": 2.674208329002166e-07,
+  "validation_residual_mse": null,
   "true_pde_metrics": {
-    "coefficient_relative_error": 15.13540959385587,
+    "coefficient_relative_error": 0.0006287047222925393,
     "true_positive": [
       "u_x",
       "u_xx"
     ],
-    "false_positive": [
-      "1",
-      "u",
-      "u*u_x",
-      "u*u_x*u_xx",
-      "u*u_x^2",
-      "u*u_xx",
-      "u*u_xx^2",
-      "u^2",
-      "u^2*u_x",
-      "u^2*u_xx",
-      "u^3",
-      "u_x^2",
-      "u_x^3"
-    ],
+    "false_positive": [],
     "false_negative": []
   }
 }
